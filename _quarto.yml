@@ -11,6 +11,10 @@ website:
         text: Home
       - text: Ecosystem
         href: ecosystem/
+    tools:
+      - icon: github
+        text: GitHub
+        href: https://github.com/JuliaSpacePhysics
 
 format:
   html:

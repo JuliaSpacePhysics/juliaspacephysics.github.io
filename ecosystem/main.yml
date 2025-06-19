@@ -1,0 +1,53 @@
+- name: SPEDAS.jl
+  api: https://beforerr.github.io/SPEDAS.jl
+  github: https://github.com/Beforerr/SPEDAS.jl
+  description: Julia-based Space Physics Environment Data Analysis Software
+  category: main
+
+- name: GeoCotrans.jl
+  api: https://juliaspacephysics.github.io/GeoCotrans.jl
+  github: https://github.com/JuliaSpacePhysics/GeoCotrans.jl
+  description: Coordinate transformations between common geocentric systems
+  category: main
+
+- name: GeoAACGM.jl
+  api: https://juliaspacephysics.github.io/GeoAACGM.jl
+  github: https://github.com/JuliaSpacePhysics/GeoAACGM.jl
+  description: Altitude-Adjusted Corrected Geomagnetic (AACGM) coordinate system
+  category: main
+
+- name: Speasy.jl
+  api: ""
+  github: https://github.com/SciQLop/Speasy.jl
+  description: Access and load data from main Space Physics WebServices (CDA,SSC,AMDA,..)
+  category: data
+
+- name: HAPIClient.jl
+  api: ""
+  github: https://github.com/JuliaSpacePhysics/HAPIClient.jl
+  description: A Julia client for the Heliophysics Application Programmer's Interface (HAPI)
+  category: data
+
+- name: Madrigal.jl
+  api: https://juliaspacephysics.github.io/Madrigal.jl
+  github: https://github.com/JuliaSpacePhysics/Madrigal.jl
+  description: Access and load data from the Madrigal database
+  category: data
+
+- name: PySPEDAS.jl
+  api: ""
+  github: https://github.com/JuliaSpacePhysics/PySPEDAS.jl
+  description: A Julia wrapper for the Python SPEDAS library
+  category: data
+
+- name: JuliaPlasma/PlasmaFormulary.jl
+  api: https://juliaplasma.github.io/PlasmaFormulary.jl
+  github: https://github.com/JuliaPlasma/PlasmaFormulary.jl
+  description: Plasma Formulary Made Easy
+  category: analysis
+
+- name: JuliaPlasma/ChargedParticles.jl
+  api: https://juliaplasma.github.io/ChargedParticles.jl
+  github: https://github.com/JuliaPlasma/ChargedParticles.jl
+  description: A Julia package for representing charged particles
+  category: analysis

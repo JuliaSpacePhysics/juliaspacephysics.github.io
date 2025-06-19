@@ -1,0 +1,7 @@
+---
+title: "JuliaSpacePhysics.github.io"
+---
+
+A landing page for JuliaSpacePhysics.
+
+Check out a curated list of packages in the JuliaSpacePhysics ecosystem (and beyond) on the [Ecosystem page](ecosystem/).

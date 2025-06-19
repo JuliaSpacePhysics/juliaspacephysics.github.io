@@ -4,6 +4,12 @@
   description: Julia-based Space Physics Environment Data Analysis Software
   category: main
 
+- name: SpaceDataModel.jl
+  api: ""
+  github: https://github.com/JuliaSpacePhysics/SpaceDataModel.jl
+  description: A flexible data model for handling space/heliospheric science data
+  category: main
+
 - name: GeoCotrans.jl
   api: https://juliaspacephysics.github.io/GeoCotrans.jl
   github: https://github.com/JuliaSpacePhysics/GeoCotrans.jl

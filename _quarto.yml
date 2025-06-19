@@ -3,6 +3,8 @@ project:
 
 website:
   title: "JuliaSpacePhysics.github.io"
+  site-url: https://juliaspacephysics.github.io
+  site-path: "/"
   navbar:
     left:
       - href: index.qmd
@@ -18,5 +20,6 @@ format:
     css: styles.css
     toc: true
 
-
-
+# Global Variables to use in any qmd files using:
+# {{< meta site-url >}}
+site-url: https://juliaspacephysics.github.io

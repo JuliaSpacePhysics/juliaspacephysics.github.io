@@ -5,7 +5,7 @@
   category: main
 
 - name: SpaceDataModel.jl
-  api: ""
+  api: https://juliaspacephysics.github.io/SpaceDataModel.jl
   github: https://github.com/JuliaSpacePhysics/SpaceDataModel.jl
   description: A flexible data model for handling space/heliospheric science data
   category: main

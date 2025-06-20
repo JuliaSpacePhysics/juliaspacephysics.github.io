@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ecosystem – JuliaSpacePhysics</title>
+<title>Tutorials – JuliaSpacePhysics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,91 +67,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-libraries .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-libraries'] = new List('listing-libraries', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-libraries-data .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-libraries-data'] = new List('listing-libraries-data', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-libraries-analysis .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-libraries-analysis'] = new List('listing-libraries-analysis', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script type="application/ld+json">
 {
   "@context" : "https://schema.org",
@@ -163,87 +76,7 @@ ul.task-list li input[type="checkbox"] {
   "url" : "https://juliaspacephysics.github.io/",
 }
 </script>
-<style>
-  /* links */
-  a { text-decoration: none; }
-  a:hover { text-decoration: underline; }
-</style>
 
-<style>
-  /* responsive wrapper */
-  .table-responsive {
-    overflow-x: auto;
-    margin-bottom: 1rem;
-  }
-
-  /* default (light-mode) table styling */
-  .packages-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    color: #212529;
-  }
-  .packages-table th,
-  .packages-table td {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  .packages-table thead {
-    background-color: #f8f8f8;
-  }
-  .packages-table tbody tr:nth-child(odd) {
-    background-color: #fafafa;
-  }
-  .packages-table tbody tr:hover {
-    background-color: #eef9ff;
-  }
-  .packages-table th {
-    font-weight: 600;
-  }
-
-  /* deprecated badge */
-  .badge.deprecated {
-    display: inline-block;
-    margin-left: 0.5em;
-    padding: 0.2em 0.4em;
-    font-size: 0.75em;
-    font-weight: 600;
-    color: #721c24;
-    background-color: #f8d7da;
-    border-radius: 0.2em;
-  }
-</style>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -289,24 +122,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#core-libraries" id="toc-core-libraries" class="nav-link active" data-scroll-target="#core-libraries">Core Libraries</a></li>
-  <li><a href="#data-access" id="toc-data-access" class="nav-link" data-scroll-target="#data-access">Data Access</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  <li><a href="#elsewhere" id="toc-elsewhere" class="nav-link" data-scroll-target="#elsewhere">Elsewhere</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/ecosystem/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ecosystem</h1>
+<h1 class="title">Tutorials</h1>
 </div>
 
 
@@ -323,242 +147,9 @@ window.Quarto = {
 </header>
 
 
-<p>This page lists all the packages that are part of or closely related to the <a href="https://github.com/JuliaSpacePhysics">JuliaSpacePhysics</a>, and provides links to their respective API documentation pages and GitHub repositories.</p>
-<section id="core-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="core-libraries">Core Libraries</h2>
-<div id="listing-libraries" class="quarto-listing quarto-listing-container-custom">
-<div class="table-responsive">
-<table class="packages-table">
-<thead>
-<tr>
-<th>
-Package
-</th>
-<th>
-API
-</th>
-<th>
-GitHub
-</th>
-<th>
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Package">
-SPEDAS.jl
-</td>
-<td data-label="API">
-<a href="https://beforerr.github.io/SPEDAS.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/Beforerr/SPEDAS.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Julia-based Space Physics Environment Data Analysis Software
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-SpaceDataModel.jl
-</td>
-<td data-label="API">
-—
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/SpaceDataModel.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-A flexible data model for handling space/heliospheric science data
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-GeoCotrans.jl
-</td>
-<td data-label="API">
-<a href="https://juliaspacephysics.github.io/GeoCotrans.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/GeoCotrans.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Coordinate transformations between common geocentric systems
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-GeoAACGM.jl
-</td>
-<td data-label="API">
-<a href="https://juliaspacephysics.github.io/GeoAACGM.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/GeoAACGM.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Altitude-Adjusted Corrected Geomagnetic (AACGM) coordinate system
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</section>
-<section id="data-access" class="level2">
-<h2 class="anchored" data-anchor-id="data-access">Data Access</h2>
-<div id="listing-libraries-data" class="quarto-listing quarto-listing-container-custom">
-<div class="table-responsive">
-<table class="packages-table">
-<thead>
-<tr>
-<th>
-Package
-</th>
-<th>
-API
-</th>
-<th>
-GitHub
-</th>
-<th>
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Package">
-Speasy.jl
-</td>
-<td data-label="API">
-—
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/SciQLop/Speasy.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Access and load data from main Space Physics WebServices (CDA,SSC,AMDA,..)
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-HAPIClient.jl
-</td>
-<td data-label="API">
-—
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/HAPIClient.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-A Julia client for the Heliophysics Application Programmer's Interface (HAPI)
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-Madrigal.jl
-</td>
-<td data-label="API">
-<a href="https://juliaspacephysics.github.io/Madrigal.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/Madrigal.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Access and load data from the Madrigal database
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-PySPEDAS.jl
-</td>
-<td data-label="API">
-—
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/PySPEDAS.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-A Julia wrapper for the Python SPEDAS library
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</section>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<div id="listing-libraries-analysis" class="quarto-listing quarto-listing-container-custom">
-<div class="table-responsive">
-<table class="packages-table">
-<thead>
-<tr>
-<th>
-Package
-</th>
-<th>
-API
-</th>
-<th>
-GitHub
-</th>
-<th>
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Package">
-JuliaPlasma/PlasmaFormulary.jl
-</td>
-<td data-label="API">
-<a href="https://juliaplasma.github.io/PlasmaFormulary.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaPlasma/PlasmaFormulary.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Plasma Formulary Made Easy
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-JuliaPlasma/ChargedParticles.jl
-</td>
-<td data-label="API">
-<a href="https://juliaplasma.github.io/ChargedParticles.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaPlasma/ChargedParticles.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-A Julia package for representing charged particles
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</section>
-<section id="elsewhere" class="level2">
-<h2 class="anchored" data-anchor-id="elsewhere">Elsewhere</h2>
-<ul>
-<li><a href="https://juliaastro.org/home/ecosystem/">JuliaAstro Ecosystem</a> for astronomy and astrophysics packages</li>
-<li><a href="https://juliaplasma.github.io/">JuliaPlasma Ecosystem</a> for plasma physics modeliing</li>
-<li><a href="https://github.com/JuliaSpace">JuliaSpace</a> for satellite analysis</li>
-</ul>
+<p>See <a href="https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/">SPEDAS.jl</a> for a getting started tutorial.</p>
 
 
-
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -965,4 +556,4 @@ A Julia package for representing charged particles
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/ecosystem/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

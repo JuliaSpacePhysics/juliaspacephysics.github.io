@@ -1,9 +1,16 @@
 [
   {
+    "objectID": "tutorials/index.html",
+    "href": "tutorials/index.html",
+    "title": "Tutorials",
+    "section": "",
+    "text": "See SPEDAS.jl for a getting started tutorial.\n\n\n\n Back to top"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "JuliaSpacePhysics.github.io",
     "section": "",
-    "text": "A landing page for JuliaSpacePhysics.\nCheck out a curated list of packages in the JuliaSpacePhysics ecosystem (and beyond) on the Ecosystem page."
+    "text": "A landing page for JuliaSpacePhysics.\nCheck out a curated list of packages in the JuliaSpacePhysics ecosystem (and beyond) on the Ecosystem page.\n\n\n\n Back to top"
   }
 ]

@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "JuliaSpacePhysics.github.io"
+  title: "JuliaSpacePhysics"
   site-url: https://juliaspacephysics.github.io
   site-path: "/"
   navbar:
@@ -11,10 +11,15 @@ website:
         text: Home
       - text: Ecosystem
         href: ecosystem/
+      - text: Tutorials
+        href: tutorials/
     tools:
       - icon: github
         text: GitHub
         href: https://github.com/JuliaSpacePhysics
+  back-to-top-navigation: true
+  repo-url: https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/
+  repo-actions: [edit, issue]
 
 format:
   html:
@@ -23,6 +28,17 @@ format:
       - brand
     css: styles.css
     toc: true
+    include-in-header:
+      - text: |
+          <script type="application/ld+json">
+          {
+            "@context" : "https://schema.org",
+            "@type" : "WebSite",
+            "name" : "JuliaSpacePhysics",
+            "alternateName": "Space Physics in Julia",
+            "url" : "https://juliaspacephysics.github.io/",
+          }
+          </script>
 
 # Global Variables to use in any qmd files using:
 # {{< meta site-url >}}

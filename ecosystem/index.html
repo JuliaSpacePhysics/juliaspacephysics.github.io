@@ -153,6 +153,62 @@ ul.task-list li input[type="checkbox"] {
       window['quarto-listing-loaded']();
     }
   })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-libraries-itm .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-libraries-itm'] = new List('listing-libraries-itm', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-libraries-magnetosphere .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-libraries-magnetosphere'] = new List('listing-libraries-magnetosphere', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
   </script>
 <script type="application/ld+json">
 {
@@ -296,7 +352,9 @@ window.Quarto = {
   <ul>
   <li><a href="#core-libraries" id="toc-core-libraries" class="nav-link active" data-scroll-target="#core-libraries">Core Libraries</a></li>
   <li><a href="#data-access" id="toc-data-access" class="nav-link" data-scroll-target="#data-access">Data Access</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#magnetosphere" id="toc-magnetosphere" class="nav-link" data-scroll-target="#magnetosphere">Magnetosphere</a></li>
+  <li><a href="#ionosphere-thermosphere-and-mesosphere" id="toc-ionosphere-thermosphere-and-mesosphere" class="nav-link" data-scroll-target="#ionosphere-thermosphere-and-mesosphere">Ionosphere, Thermosphere and Mesosphere</a></li>
+  <li><a href="#general-analysis" id="toc-general-analysis" class="nav-link" data-scroll-target="#general-analysis">General Analysis</a></li>
   <li><a href="#elsewhere" id="toc-elsewhere" class="nav-link" data-scroll-target="#elsewhere">Elsewhere</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/ecosystem/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -386,20 +444,6 @@ GeoCotrans.jl
 </td>
 <td data-label="Description">
 Coordinate transformations between common geocentric systems
-</td>
-</tr>
-<tr>
-<td data-label="Package">
-GeoAACGM.jl
-</td>
-<td data-label="API">
-<a href="https://juliaspacephysics.github.io/GeoAACGM.jl" target="_blank">API</a>
-</td>
-<td data-label="GitHub">
-<a href="https://github.com/JuliaSpacePhysics/GeoAACGM.jl" target="_blank">GitHub</a>
-</td>
-<td data-label="Description">
-Altitude-Adjusted Corrected Geomagnetic (AACGM) coordinate system
 </td>
 </tr>
 </tbody>
@@ -492,8 +536,92 @@ A Julia wrapper for the Python SPEDAS library
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 </section>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<section id="magnetosphere" class="level2">
+<h2 class="anchored" data-anchor-id="magnetosphere">Magnetosphere</h2>
+<div id="listing-libraries-magnetosphere" class="quarto-listing quarto-listing-container-custom">
+<div class="table-responsive">
+<table class="packages-table">
+<thead>
+<tr>
+<th>
+Package
+</th>
+<th>
+API
+</th>
+<th>
+GitHub
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Package">
+IRBEM.jl
+</td>
+<td data-label="API">
+<a href="https://juliaspacephysics.github.io/IRBEM.jl" target="_blank">API</a>
+</td>
+<td data-label="GitHub">
+<a href="https://github.com/JuliaSpacePhysics/IRBEM.jl" target="_blank">GitHub</a>
+</td>
+<td data-label="Description">
+Julia wrapper for the IRBEM (International Radiation Belt Environment Modeling)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="ionosphere-thermosphere-and-mesosphere" class="level2">
+<h2 class="anchored" data-anchor-id="ionosphere-thermosphere-and-mesosphere">Ionosphere, Thermosphere and Mesosphere</h2>
+<div id="listing-libraries-itm" class="quarto-listing quarto-listing-container-custom">
+<div class="table-responsive">
+<table class="packages-table">
+<thead>
+<tr>
+<th>
+Package
+</th>
+<th>
+API
+</th>
+<th>
+GitHub
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Package">
+GeoAACGM.jl
+</td>
+<td data-label="API">
+<a href="https://juliaspacephysics.github.io/GeoAACGM.jl" target="_blank">API</a>
+</td>
+<td data-label="GitHub">
+<a href="https://github.com/JuliaSpacePhysics/GeoAACGM.jl" target="_blank">GitHub</a>
+</td>
+<td data-label="Description">
+Altitude-Adjusted Corrected Geomagnetic (AACGM) coordinate system
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="general-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="general-analysis">General Analysis</h2>
 <div id="listing-libraries-analysis" class="quarto-listing quarto-listing-container-custom">
 <div class="table-responsive">
 <table class="packages-table">

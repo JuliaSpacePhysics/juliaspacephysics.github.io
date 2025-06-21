@@ -20,7 +20,13 @@
   api: https://juliaspacephysics.github.io/GeoAACGM.jl
   github: https://github.com/JuliaSpacePhysics/GeoAACGM.jl
   description: Altitude-Adjusted Corrected Geomagnetic (AACGM) coordinate system
-  category: main
+  category: itm
+
+- name: IRBEM.jl
+  api: https://juliaspacephysics.github.io/IRBEM.jl
+  github: https://github.com/JuliaSpacePhysics/IRBEM.jl
+  description: Julia wrapper for the IRBEM (International Radiation Belt Environment Modeling)
+  category: magnetosphere
 
 - name: Speasy.jl
   api: ""

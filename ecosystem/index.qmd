@@ -20,6 +20,18 @@ listing:
     fields: [name, api, github, description, category]
     include:
       category: analysis
+  - id: libraries-itm
+    contents: main.yml
+    template: table.ejs
+    fields: [name, api, github, description, category]
+    include:
+      category: itm
+  - id: libraries-magnetosphere
+    contents: main.yml
+    template: table.ejs
+    fields: [name, api, github, description, category]
+    include:
+      category: magnetosphere
 include-in-header:
   - text: |
       <style>
@@ -87,7 +99,17 @@ This page lists all the packages that are part of or closely related to the [Jul
 ::: {#libraries-data}
 :::
 
-## Analysis
+## Magnetosphere
+
+::: {#libraries-magnetosphere}
+:::
+
+## Ionosphere, Thermosphere and Mesosphere
+
+::: {#libraries-itm}
+:::
+
+## General Analysis
 
 ::: {#libraries-analysis}
 :::

@@ -19,8 +19,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - uses: julia-actions/setup-julia@v2
       - uses: julia-actions/cache@v2
+      - name: Instantiate Julia environment
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.resolve()'
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Render Quarto site

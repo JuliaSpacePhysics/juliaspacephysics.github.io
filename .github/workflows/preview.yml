@@ -8,6 +8,10 @@ on:
 concurrency:
   group: docs
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build-and-preview:
     if: github.event.action == 'opened' || github.event.action == 'synchronize'

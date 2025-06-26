@@ -2,8 +2,12 @@
 
 on:
   push:
-    branches: main
+    branches: [main]
   workflow_dispatch: # manual trigger for testing
+
+concurrency:
+  group: docs
+  cancel-in-progress: true
 
 name: Deploy to GitHub Pages
 
@@ -15,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+      - uses: julia-actions/cache@v2
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Render Quarto site

@@ -1,8 +1,12 @@
+# Reference: https://github.com/TuringLang/docs/blob/main/.github/workflows/preview.yml
 name: PR Preview Workflow
 
 on:
   pull_request_target:
     types: [opened, synchronize, closed]
+
+concurrency:
+  group: docs
 
 jobs:
   build-and-preview:
@@ -14,6 +18,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       
+      - uses: julia-actions/setup-julia@v2
+      - uses: julia-actions/cache@v2
+      - name: Instantiate Julia environment
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.resolve()'
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       

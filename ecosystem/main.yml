@@ -52,6 +52,12 @@
   description: A Julia wrapper for the Python SPEDAS library
   category: data
 
+- name: Beforerr/TimeseriesUtilities.jl
+  api: https://beforerr.github.io/TimeseriesUtilities.jl
+  github: https://github.com/Beforerr/TimeseriesUtilities.jl
+  description: A collection of utilities to simplify common time series analysis.
+  category: analysis
+
 - name: JuliaPlasma/PlasmaFormulary.jl
   api: https://juliaplasma.github.io/PlasmaFormulary.jl
   github: https://github.com/JuliaPlasma/PlasmaFormulary.jl

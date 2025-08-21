@@ -159,9 +159,9 @@ faxes
 <details><summary>This tutorial was built using these direct dependencies,</summary>
 ```
 
-```@example
-using Pkg # hide
-Pkg.status() # hide
+```{julia}
+using Pkg
+Pkg.status()
 ```
 
 ```@raw html
@@ -172,9 +172,9 @@ Pkg.status() # hide
 <details><summary>and using this machine and Julia version.</summary>
 ```
 
-```@example
+```{julia}
 using InteractiveUtils # hide
-versioninfo() # hide
+versioninfo()
 ```
 
 ```@raw html

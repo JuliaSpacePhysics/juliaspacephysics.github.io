@@ -20,6 +20,12 @@ listing:
     fields: [name, api, github, description, category]
     include:
       category: analysis
+  - id: libraries-helio
+    contents: main.yml
+    template: table.ejs
+    fields: [name, api, github, description, category]
+    include:
+      category: helio
   - id: libraries-itm
     contents: main.yml
     template: table.ejs
@@ -97,6 +103,11 @@ This page lists all the packages that are part of or closely related to the [Jul
 ## Data Access
 
 ::: {#libraries-data}
+:::
+
+## Heliosphere
+
+::: {#libraries-helio}
 :::
 
 ## Magnetosphere

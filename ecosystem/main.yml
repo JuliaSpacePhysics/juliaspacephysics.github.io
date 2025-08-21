@@ -10,11 +10,23 @@
   description: A flexible data model for handling space/heliospheric science data
   category: main
 
+- name: SpacePhysicsMakie.jl
+  api: ""
+  github: https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl
+  description: Space physics plotting utilities built on Makie.jl
+  category: main
+
 - name: GeoCotrans.jl
   api: https://juliaspacephysics.github.io/GeoCotrans.jl
   github: https://github.com/JuliaSpacePhysics/GeoCotrans.jl
   description: Coordinate transformations between common geocentric systems
   category: main
+
+- name: SolarEnergeticParticle.jl
+  api: ""
+  github: https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl
+  description: Load and analyze in-situ measurements of Solar Energetic Particles (SEP)
+  category: helio
 
 - name: GeoAACGM.jl
   api: https://juliaspacephysics.github.io/GeoAACGM.jl
@@ -29,13 +41,13 @@
   category: magnetosphere
 
 - name: Speasy.jl
-  api: ""
+  api: "https://sciqlop.github.io/Speasy.jl/dev/"
   github: https://github.com/SciQLop/Speasy.jl
   description: Access and load data from main Space Physics WebServices (CDA,SSC,AMDA,..)
   category: data
 
 - name: HAPIClient.jl
-  api: ""
+  api: "https://juliaspacephysics.github.io/HAPIClient.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/HAPIClient.jl
   description: A Julia client for the Heliophysics Application Programmer's Interface (HAPI)
   category: data

@@ -219,6 +219,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /home/runner/.julia/packages/DimensionalData/48C1z/CondaPkg.toml
 <span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /home/runner/.julia/packages/Speasy/0vfR0/CondaPkg.toml
 <span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /home/runner/.julia/packages/PythonCall/IOKTD/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Resolving changes
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ libstdcxx</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ libstdcxx-ng</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ numpy</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ openssl</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ python</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ speasy (pip)</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ sqlite</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ uv</span>
+<span class="ansi-green-fg ansi-bold">             </span><span class="ansi-green-fg">+ xarray</span>
 <span class="ansi-green-fg ansi-bold">    CondaPkg </span>Initialising pixi
 <span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">/home/runner/.julia/artifacts/cefba4912c2b400756d043a2563ef77a0088866b/bin/pixi</span>
 <span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">init</span>
@@ -512,14 +522,74 @@ vectors:
 </section>
 <section id="reproducibility" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
-<p><code>@raw html &lt;details&gt;&lt;summary&gt;This tutorial was built using these direct dependencies,&lt;/summary&gt;</code></p>
-<pre class="@example"><code>using Pkg # hide
-Pkg.status() # hide</code></pre>
-<p><code>@raw html &lt;/details&gt;</code></p>
-<p><code>@raw html &lt;details&gt;&lt;summary&gt;and using this machine and Julia version.&lt;/summary&gt;</code></p>
-<pre class="@example"><code>using InteractiveUtils # hide
-versioninfo() # hide</code></pre>
-<p><code>@raw html &lt;/details&gt;</code></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This tutorial was built using these direct dependencies
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="16" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">status</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-green-fg ansi-bold">Status</span> `~/work/juliaspacephysics.github.io/juliaspacephysics.github.io/Project.toml`
+<span class="ansi-green-fg">⌃</span> <span class="ansi-bright-black-fg">[13f3f980] </span>CairoMakie v0.14.0
+  <span class="ansi-bright-black-fg">[0703355e] </span>DimensionalData v0.29.23
+  <span class="ansi-bright-black-fg">[3930f61c] </span>SPEDAS v0.2.0
+  <span class="ansi-bright-black-fg">[0c28ffd8] </span>SpacePhysicsMakie v0.1.3
+  <span class="ansi-bright-black-fg">[09b745ad] </span>Speasy v0.4.5
+  <span class="ansi-bright-black-fg">[31d49243] </span>TimeseriesUtilities v0.1.3
+  <span class="ansi-bright-black-fg">[1986cc42] </span>Unitful v1.24.0
+<span class="ansi-cyan-fg ansi-bold">Info</span> Packages marked with <span class="ansi-green-fg">⌃</span> have new versions available and may be upgradable.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Machine and Julia version information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="18" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">InteractiveUtils</span> <span class="co"># hide</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">versioninfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Julia Version 1.11.6
+Commit 9615af0f269 (2025-07-09 12:58 UTC)
+Build Info:
+  Official https://julialang.org/ release
+Platform Info:
+  OS: Linux (x86_64-linux-gnu)
+  CPU: 4 × AMD EPYC 7763 64-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-16.0.6 (ORCJIT, znver3)
+Threads: 1 default, 0 interactive, 1 GC (on 4 virtual cores)
+Environment:
+  JULIA_PROJECT = @.
+  JULIA_LOAD_PATH = @:@stdlib
+  JULIA_PYTHONCALL_EXE = /home/runner/work/juliaspacephysics.github.io/juliaspacephysics.github.io/.CondaPkg/.pixi/envs/default/bin/python</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>

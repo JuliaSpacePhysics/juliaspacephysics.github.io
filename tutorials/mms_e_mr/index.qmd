@@ -11,12 +11,11 @@ using Speasy
 using DimensionalData
 using SPEDAS
 using SPEDAS.MMS
-using SPEDAS: dimarrayify
-using CairoMakie
+using CairoMakie, SpacePhysicsMakie
 using Unitful
 
 update_theme!(colormap=:rainbow1)
-SPEDAS.DEFAULTS.add_title = true;
+SpacePhysicsMakie.DEFAULTS.add_title = true;
 ```
 
 ## Overview plot
@@ -52,13 +51,14 @@ data_rate = "brst"
 fpi_des_ds = FPIDataSet(; probe, data_rate, data_type="des")
 fpi_dis_ds = FPIDataSet(; probe, data_rate, data_type="dis")
 
-des_data = get_data(NamedTuple, fpi_des_ds, trange) |> dimarrayify
-dis_data = get_data(NamedTuple, fpi_dis_ds, trange) |> dimarrayify
+f = x -> DimArray(x; add_unit=true)
+des_data = map(f, get_data(NamedTuple, fpi_des_ds, trange))
+dis_data = map(f, get_data(NamedTuple, fpi_dis_ds, trange))
 
-des_n = modify_meta(des_data.numberdensity[:, 1], label="Ne")
+des_n = setmeta(des_data.numberdensity[:, 1], labels="Ne")
 dis_bulkv_lmn = rotate(dis_data.bulkv_gse, rotMat) |> set_coord("LMN")
 des_bulkv_lmn = rotate(des_data.bulkv_gse, rotMat) |> set_coord("LMN")
-dis_n = modify_meta(dis_data.numberdensity[:, 1], label="Ni")
+dis_n = setmeta(dis_data.numberdensity[:, 1], labels="Ni")
 ```
 
 ### Magnitudes of electron and ion convection velocities
@@ -74,8 +74,7 @@ Vi_perp_mag, Ve_perp_mag = let Vi = dis_data.bulkv_gse, Ve = des_data.bulkv_gse,
     Vi_perp_mag = toproj(Vi_clip, B_int_Vi) |> tnorm
     Ve_perp_mag = toproj(Ve_clip, B_int_Ve) |> tnorm
 
-    modify_meta(Vi_perp_mag, label="Viper_t"),
-    modify_meta(Ve_perp_mag, label="Veper_t")
+    setmeta(Vi_perp_mag, labels="Viper_t"), setmeta(Ve_perp_mag, labels="Veper_t")
 end
 ```
 
@@ -93,7 +92,7 @@ J = begin
     J = mapslices(Vi_interp - Ve_clip; dims=Ti) do V_diff_i
         @. Unitful.q * V_diff_i * n_interp |> u"μA*m^-2"
     end
-    modify_meta(J, labels=["j_L", "j_M", "j_N"])
+    setmeta(J, labels=["j_L", "j_M", "j_N"])
 end
 ```
 
@@ -109,8 +108,8 @@ des_energyspectr_tvars = [
 des_energyspectr = get_data(des_energyspectr_tvars, trange) .|> DimArray
 replace!.(des_energyspectr, 0 => NaN)
 des_energyspectr_ratio = des_energyspectr[1] ./ des_energyspectr[2]
-des_energyspectr = modify_meta.(des_energyspectr, colorrange=(1e5, 1e9))
-des_energyspectr_ratio = modify_meta(des_energyspectr_ratio,
+des_energyspectr = setmeta.(des_energyspectr, colorrange=(1e5, 1e9))
+des_energyspectr_ratio = setmeta(des_energyspectr_ratio,
     colorrange=(1e-1, 1e1), title="Ratio (Para/Perp)"
 )
 ```
@@ -137,8 +136,8 @@ From top to bottom, the panels represent the following:
 tvars2plot = (
     B_LMN,
     [dis_n, des_n],
-    modify_meta(dis_data.energyspectr_omni, colorrange=(1e3, 1e9)),
-    modify_meta(des_data.energyspectr_omni, colorrange=(1e3, 1e9)),
+    setmeta(dis_data.energyspectr_omni, colorrange=(1e3, 1e9)),
+    setmeta(des_data.energyspectr_omni, colorrange=(1e3, 1e9)),
     dis_bulkv_lmn,
     [Vi_perp_mag, Ve_perp_mag],
     E_LMN,
@@ -151,4 +150,33 @@ tlines!(faxes, ["2015-10-16T13:05:44", "2015-10-16T13:06:00"])
 tlines!(faxes, ["2015-10-16T13:06:46", "2015-10-16T13:07:12"])
 ylims!.(faxes.axes[end-3:end], 0.9e1, 1.2e3)
 faxes
+```
+
+
+## Reproducibility
+
+```@raw html
+<details><summary>This tutorial was built using these direct dependencies,</summary>
+```
+
+```@example
+using Pkg # hide
+Pkg.status() # hide
+```
+
+```@raw html
+</details>
+```
+
+```@raw html
+<details><summary>and using this machine and Julia version.</summary>
+```
+
+```@example
+using InteractiveUtils # hide
+versioninfo() # hide
+```
+
+```@raw html
+</details>
 ```

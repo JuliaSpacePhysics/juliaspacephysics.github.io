@@ -2,14 +2,11 @@
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
 SPEDAS = "3930f61c-4d81-4846-ab8f-357babe068a6"
+SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
 Speasy = "09b745ad-c67d-442f-94a6-c7f4d1e4d861"
-Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 TimeseriesUtilities = "31d49243-0742-49c1-b8d2-db113b74581e"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [compat]
-Speasy = "0.3.3"
-
-[sources]
-Speasy = { url = "https://github.com/SciQLop/Speasy.jl" }
-SPEDAS = { url = "https://github.com/JuliaSpacePhysics/SPEDAS.jl", rev = "push-wzxyxkmvkrmx" }
-TimeseriesUtilities = { url = "https://github.com/Beforerr/TimeSeriesUtilities.jl" }
+SPEDAS = "0.2"
+Speasy = "0.4"

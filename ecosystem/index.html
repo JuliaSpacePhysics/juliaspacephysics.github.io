@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4df3b0c4fafa0f66eafcead0ee6cff11.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -142,6 +142,34 @@ ul.task-list li input[type="checkbox"] {
 
     window['quarto-listings'] = window['quarto-listings'] || {};
     window['quarto-listings']['listing-libraries-analysis'] = new List('listing-libraries-analysis', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-libraries-helio .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-name','listing-api','listing-github','listing-description','listing-category',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-name","listing-api","listing-github","listing-description","listing-category"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-libraries-helio'] = new List('listing-libraries-helio', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -352,6 +380,7 @@ window.Quarto = {
   <ul>
   <li><a href="#core-libraries" id="toc-core-libraries" class="nav-link active" data-scroll-target="#core-libraries">Core Libraries</a></li>
   <li><a href="#data-access" id="toc-data-access" class="nav-link" data-scroll-target="#data-access">Data Access</a></li>
+  <li><a href="#heliosphere" id="toc-heliosphere" class="nav-link" data-scroll-target="#heliosphere">Heliosphere</a></li>
   <li><a href="#magnetosphere" id="toc-magnetosphere" class="nav-link" data-scroll-target="#magnetosphere">Magnetosphere</a></li>
   <li><a href="#ionosphere-thermosphere-and-mesosphere" id="toc-ionosphere-thermosphere-and-mesosphere" class="nav-link" data-scroll-target="#ionosphere-thermosphere-and-mesosphere">Ionosphere, Thermosphere and Mesosphere</a></li>
   <li><a href="#general-analysis" id="toc-general-analysis" class="nav-link" data-scroll-target="#general-analysis">General Analysis</a></li>
@@ -434,6 +463,20 @@ A flexible data model for handling space/heliospheric science data
 </tr>
 <tr>
 <td data-label="Package">
+SpacePhysicsMakie.jl
+</td>
+<td data-label="API">
+—
+</td>
+<td data-label="GitHub">
+<a href="https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl" target="_blank">GitHub</a>
+</td>
+<td data-label="Description">
+Space physics plotting utilities built on Makie.jl
+</td>
+</tr>
+<tr>
+<td data-label="Package">
 GeoCotrans.jl
 </td>
 <td data-label="API">
@@ -479,7 +522,7 @@ Description
 Speasy.jl
 </td>
 <td data-label="API">
-—
+<a href="https://sciqlop.github.io/Speasy.jl/dev/" target="_blank">API</a>
 </td>
 <td data-label="GitHub">
 <a href="https://github.com/SciQLop/Speasy.jl" target="_blank">GitHub</a>
@@ -493,7 +536,7 @@ Access and load data from main Space Physics WebServices (CDA,SSC,AMDA,..)
 HAPIClient.jl
 </td>
 <td data-label="API">
-—
+<a href="https://juliaspacephysics.github.io/HAPIClient.jl/dev/" target="_blank">API</a>
 </td>
 <td data-label="GitHub">
 <a href="https://github.com/JuliaSpacePhysics/HAPIClient.jl" target="_blank">GitHub</a>
@@ -528,6 +571,48 @@ PySPEDAS.jl
 </td>
 <td data-label="Description">
 A Julia wrapper for the Python SPEDAS library
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="heliosphere" class="level2">
+<h2 class="anchored" data-anchor-id="heliosphere">Heliosphere</h2>
+<div id="listing-libraries-helio" class="quarto-listing quarto-listing-container-custom">
+<div class="table-responsive">
+<table class="packages-table">
+<thead>
+<tr>
+<th>
+Package
+</th>
+<th>
+API
+</th>
+<th>
+GitHub
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Package">
+SolarEnergeticParticle.jl
+</td>
+<td data-label="API">
+—
+</td>
+<td data-label="GitHub">
+<a href="https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl" target="_blank">GitHub</a>
+</td>
+<td data-label="Description">
+Load and analyze in-situ measurements of Solar Energetic Particles (SEP)
 </td>
 </tr>
 </tbody>

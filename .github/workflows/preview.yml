@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      
+
       - uses: julia-actions/setup-julia@v2
       - uses: julia-actions/cache@v2
       - name: Instantiate Julia environment
@@ -29,11 +29,31 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-      
+
+      - name: Restore cached _freeze folder
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ./_freeze/
+          key: |
+            ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}-${{ hashFiles('**/index.qmd') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}
+
       - run: quarto --version
 
       - name: Render Quarto site
         run: quarto render
+
+      - name: Save _freeze folder
+        id: cache-save
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ./_freeze/
+          key: ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}-${{ hashFiles('**/index.qmd') }}
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -44,12 +64,6 @@ jobs:
           clean: false
           commit-message: Deploy preview for PR ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-  comment-preview-url:
-    needs: build-and-preview
-    if: needs.build-and-preview.result == 'success'
-    runs-on: ubuntu-latest
-    steps:
       - name: Comment Preview URL
         uses: thollander/actions-comment-pull-request@v2
         with:
@@ -58,15 +72,13 @@ jobs:
             Preview the changes: https://juliaspacephysics.github.io/pr-previews/${{ github.event.pull_request.number }}
             Please avoid using the search feature and navigation bar in PR previews!
           comment_tag: preview-url-comment
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   delete-preview-directory:
     if: github.event.action == 'closed' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: gh-pages
 

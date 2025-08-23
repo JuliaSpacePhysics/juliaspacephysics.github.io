@@ -18,17 +18,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - uses: julia-actions/setup-julia@v2
       - uses: julia-actions/cache@v2
       - name: Instantiate Julia environment
         run: julia --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.resolve()'
 
+      - name: Restore cached _freeze folder
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ./_freeze/
+          key: |
+            ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}-${{ hashFiles('**/index.qmd') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Render Quarto site
         run: quarto render
+      - name: Save _freeze folder
+        id: cache-save
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ./_freeze/
+          key: ${{ runner.os }}-${{ hashFiles('**/Manifest.toml') }}-${{ hashFiles('**/index.qmd') }}
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

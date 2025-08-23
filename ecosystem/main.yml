@@ -23,7 +23,7 @@
   category: main
 
 - name: SolarEnergeticParticle.jl
-  api: ""
+  api: "https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl
   description: Load and analyze in-situ measurements of Solar Energetic Particles (SEP)
   category: helio

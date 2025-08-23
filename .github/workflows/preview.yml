@@ -65,7 +65,7 @@ jobs:
           commit-message: Deploy preview for PR ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Comment Preview URL
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
           message: |
             <!-- preview-url-comment -->

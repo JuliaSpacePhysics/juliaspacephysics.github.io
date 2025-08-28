@@ -81,3 +81,9 @@
   github: https://github.com/JuliaPlasma/ChargedParticles.jl
   description: A Julia package for representing charged particles
   category: analysis
+
+- name: MinimumVarianceAnalysis.jl
+  api: "https://juliaspacephysics.github.io/MinimumVarianceAnalysis.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl
+  description: Minimum or maximum variance analysis (MVA)
+  category: analysis

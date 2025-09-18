@@ -40,6 +40,18 @@
   description: Julia wrapper for the IRBEM (International Radiation Belt Environment Modeling)
   category: magnetosphere
 
+- name: CDFDatasets.jl
+  api: "https://juliaspacephysics.github.io/CDFDatasets.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/CDFDatasets.jl
+  description: Common Data Format (CDF) datasets with CommonDataModel.jl interface (high-level)
+  category: data
+
+- name: CommonDataFormat.jl
+  api: "https://juliaspacephysics.github.io/CommonDataFormat.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/CommonDataFormat.jl
+  description: Common Data Format (CDF) reader for Julia (low-level)
+  category: data
+
 - name: Speasy.jl
   api: "https://sciqlop.github.io/Speasy.jl/dev/"
   github: https://github.com/SciQLop/Speasy.jl
@@ -63,6 +75,12 @@
   github: https://github.com/JuliaSpacePhysics/PySPEDAS.jl
   description: A Julia wrapper for the Python SPEDAS library
   category: data
+
+- name: VelocityDistributionFunctions.jl
+  api: "https://juliaspacephysics.github.io/VelocityDistributionFunctions.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl
+  description: Analysis tools for particle velocity distribution functions 
+  category: analysis
 
 - name: Beforerr/TimeseriesUtilities.jl
   api: https://beforerr.github.io/TimeseriesUtilities.jl

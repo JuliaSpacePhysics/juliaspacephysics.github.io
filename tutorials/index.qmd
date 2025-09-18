@@ -9,4 +9,5 @@ You can begin with the Getting Started guide for [`SPEDAS.jl`](https://juliaspac
 Additional tutorials include:
 
 - [MMS observations of electron-scale measurements of magnetic reconnection](mms_e_mr/)
+- [CDF reader benchmarks](cdf/)
 - [SOHO Velocity Dispersion Analysis (VDA) analysis](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)

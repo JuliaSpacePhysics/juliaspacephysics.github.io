@@ -13,6 +13,7 @@ using SPEDAS
 using SPEDAS.MMS
 using CairoMakie, SpacePhysicsMakie
 using Unitful
+using Dates
 
 update_theme!(colormap=:rainbow1)
 SpacePhysicsMakie.DEFAULTS.add_title = true;
@@ -23,8 +24,8 @@ SpacePhysicsMakie.DEFAULTS.add_title = true;
 ### Minimum Variance Analysis
 
 ```{julia}
-trange = ("2015-10-16T13:05:35", "2015-10-16T13:07:25")
-tr_mpause = ("2015-10-16T13:05:40", "2015-10-16T13:06:09")
+trange = DateTime.(("2015-10-16T13:05:35", "2015-10-16T13:07:25"))
+tr_mpause = DateTime.(("2015-10-16T13:05:40", "2015-10-16T13:06:09"))
 
 probe = 2
 
@@ -51,9 +52,13 @@ data_rate = "brst"
 fpi_des_ds = FPIDataSet(; probe, data_rate, data_type="des")
 fpi_dis_ds = FPIDataSet(; probe, data_rate, data_type="dis")
 
-f = x -> DimArray(x; add_unit=true)
-des_data = map(f, get_data(NamedTuple, fpi_des_ds, trange))
-dis_data = map(f, get_data(NamedTuple, fpi_dis_ds, trange))
+func = x -> begin
+    out = unit(x) * DimArray(x)
+    out.metadata["DEPEND_1"] = x.dims[2] # a temporary fix for `SpacePhysicsMakie`
+    out
+end
+des_data = map(func, get_data(NamedTuple, fpi_des_ds, trange))
+dis_data = map(func, get_data(NamedTuple, fpi_dis_ds, trange))
 
 des_n = setmeta(des_data.numberdensity[:, 1], labels="Ne")
 dis_bulkv_lmn = rotate(dis_data.bulkv_gse, rotMat) |> set_coord("LMN")
@@ -105,7 +110,7 @@ des_energyspectr_tvars = [
     "cda/MMS2_FPI_BRST_L2_DES-MOMS/mms$(probe)_des_energyspectr_anti_$(data_rate)"
 ]
 
-des_energyspectr = get_data(des_energyspectr_tvars, trange) .|> DimArray
+des_energyspectr = get_data(des_energyspectr_tvars, trange) .|> func
 replace!.(des_energyspectr, 0 => NaN)
 des_energyspectr_ratio = des_energyspectr[1] ./ des_energyspectr[2]
 des_energyspectr = setmeta.(des_energyspectr, colorrange=(1e5, 1e9))

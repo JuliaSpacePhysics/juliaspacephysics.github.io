@@ -1,0 +1,284 @@
+---
+title: CDF reader benchmarks
+engine: julia
+abstract: Although not a full-featured CDF library (writing is not supported yet) like CDFpp or CDFlib, `CommonDataFormat.jl` offers a fast and user-friendly interface for reading CDF files, implemented entirely in Julia. It supports partial loading and multi-threaded access, enabling efficient reading of selected variables or time intervals—particularly beneficial when working with large CDF datasets.
+julia:
+  exeflags: ["--threads=auto"]
+---
+
+Reading [Common Data Format (CDF)](https://cdf.gsfc.nasa.gov/) files is a common task in space physics. Here we compare the performance of different implementations of CDF reader (Julia, C++, Python, etc.)
+
+- [CommonDataFormat.jl](https://github.com/JuliaSpacePhysics/CommonDataFormat.jl)
+- [CDFpp](https://github.com/SciQLop/CDFpp)
+- [CDFlib](https://github.com/SciQLop/CDFlib)
+
+See [benchmarks.ipynb - CDFpp](https://github.com/SciQLop/CDFpp/blob/main/notebooks/benchmarks.ipynb) for a relative comparison of CDFpp and other CDF readers.
+
+## Feature Comparison
+
+| Feature | CommonDataFormat.jl | CDFpp | CDFlib |
+|---------|-------------------|-------|--------|
+| **Language** | Julia | C++ (Python wrappers) | Python |
+| **Lazy loading** | ✅ Yes | ✅ Yes | ❌ No |
+| **Partial Loading** | ✅ Yes | ❌ No | ❌ No |
+| **Parallel loading** | ✅ Yes | Thread-safe | ❌ No |
+| **CDF writing** | ❌ No | ✅ Yes | ✅ Yes | 
+
+## Setup
+
+```{julia}
+dir = "tutorials/cdf"
+if isdir(dir)
+    cd(dir)
+end
+
+Pkg.activate(".")
+Pkg.resolve()
+Pkg.instantiate()
+
+using CommonDataFormat
+using Downloads
+using PythonCall
+using Chairmarks
+using CairoMakie
+using DataFrames
+using AlgebraOfGraphics
+```
+
+```{julia}
+urls = [
+    "https://hephaistos.lpp.polytechnique.fr/data/mirrors/CDF/test_files/mms1_scm_srvy_l2_scsrvy_20190301_v2.2.0.cdf",
+    "https://lasp.colorado.edu/mms/sdc/public/about/browse/mms1/edp/fast/l2/dce/2022/11/mms1_edp_fast_l2_dce_20221110_v3.1.0.cdf",
+    "https://lasp.colorado.edu/mms/sdc/public/about/browse/mms1/fpi/fast/l2/des-dist/2022/11/mms1_fpi_fast_l2_des-dist_20221103060000_v3.4.0.cdf",
+    "https://cdaweb.gsfc.nasa.gov/pub/data/solar-orbiter/rpw/science/l3/bia-efield/2022/solo_l3_rpw-bia-efield_20220220_v03.cdf"
+]
+```
+
+Set the environment variable `CDF_BENCH_DOWNLOAD=true` before rendering if you want the tutorial to download the test files listed above automatically.
+
+```{julia}
+data_dir = joinpath(pwd(), "data")
+mkpath(data_dir)
+
+function ensure_local_copy(urls; download::Bool=false)
+    local_files = String[]
+    for url in urls
+        local_path = joinpath(data_dir, basename(url))
+        if !isfile(local_path) && download
+            try
+                Downloads.download(url, local_path)
+            catch err
+                @warn "Failed to download" url exception = err
+            end
+        end
+        isfile(local_path) && push!(local_files, local_path)
+    end
+    return local_files
+end
+
+download_remote = get(ENV, "CDF_BENCH_DOWNLOAD", "false") in ("true", "1", "yes")
+files = ensure_local_copy(urls; download=download_remote)
+
+if isempty(files) && !download_remote
+    @info "No CDF files found in $(data_dir). Set ENV[\"CDF_BENCH_DOWNLOAD\"] = \"true\" before rendering to download the test files automatically."
+end
+
+files
+```
+
+## Julia interface to different CDF libraries
+
+### Interface to `CommonDataFormat.jl`
+
+```{julia}
+module JLCDF
+import CommonDataFormat as CDF
+
+load(fname) = CDF.CDFDataset(fname)
+list_variables(fname) = load(fname) |> keys
+function get_var_data(fname, varname=nothing)
+    ds = load(fname)
+    varname = @something varname keys(ds)[1]
+    return Array(ds[varname])
+end
+function full_load(fname)
+    ds = load(fname)
+    return [Array(ds[k]) for k in keys(ds)]
+end
+end
+```
+
+### Interface to CDFpp
+
+```{julia}
+module Pycdfpp
+using PythonCall
+const pycdfpp = pyimport("pycdfpp")
+
+load(fname) = @py pycdfpp.load(fname)
+
+function list_variables(fname)
+    cdf = load(fname)
+    @py list(cdf)
+end
+
+function get_var_data(fname, varname=nothing)
+    ds = load(fname)
+    varname = @something varname pylist(ds)[0]
+    return ds[varname].values
+end
+
+function full_load(fname)
+    c = load(fname)
+    [c[varname].values for varname in c]
+end
+end
+```
+
+### Interface to CDFlib
+
+```{julia}
+module CDFlib
+using PythonCall
+const cdflib = pyimport("cdflib")
+
+load(fname) = @py cdflib.CDF(fname)
+function list_variables(fname)
+    @py begin
+        cdf = cdflib.CDF(fname)
+        info = cdf.cdf_info()
+        info.rVariables + info.zVariables
+    end
+end
+
+function get_var_data(fname, varname=nothing)
+    cdf = load(fname)
+    varname = @something varname cdf.cdf_info().zVariables[0]
+    data = cdf.varget(varname)
+end
+
+function full_load(fname)
+    c = load(fname)
+    variables = @py begin
+        cdf_info = c.cdf_info()
+        cdf_info.rVariables + cdf_info.zVariables
+    end
+    map(variables) do varname
+        if pyconvert(Int, c.varinq(varname).Last_Rec) != -1
+            @py c.varget(varname)
+        end
+    end
+end
+end
+
+```
+
+```{julia}
+function run_benchmarks(files, libs, func; n=3, evals=4)
+    records = map(Iterators.product(files, libs, 1:n)) do (file, lib, i)
+        fname = basename(file)
+        f = getfield(lib, func)
+        f(file) # warmup
+        GC.gc()
+        sample = @b f(file) evals = evals
+        (; file=fname, library=nameof(lib), task=func, time=sample.time, evals=sample.evals)
+    end
+    return records
+end
+
+const x = :time => log10 => "log10(Time)"
+const base_plt = mapping(x, color=:library) * visual(Hist)
+```
+
+## File open
+
+```{julia}
+libs = (JLCDF, Pycdfpp, CDFlib)
+result_open = run_benchmarks(files, libs, :load) |> DataFrame
+```
+
+```{julia}
+draw(data(result_open) * base_plt)
+```
+
+
+## Variable listing
+
+List variables names without requesting values.
+
+```{julia}
+jl_res = JLCDF.list_variables(files[1])
+cdfpp_res = pyconvert(Vector{String}, Pycdfpp.list_variables(files[1]))
+cdflib_res = pyconvert(Vector{String}, CDFlib.list_variables(files[1]))
+@assert jl_res == cdfpp_res
+@assert jl_res == cdflib_res
+
+result_list = run_benchmarks(files, libs, :list_variables; evals=4) |> DataFrame
+```
+
+
+```{julia}
+draw(data(result_list) * base_plt)
+```
+
+## Variable reading
+
+We request the first variable values. Julia is column major, while CDFpp and CDFlib are row major (C++ and Python).
+
+```{julia}
+jl_res = permutedims(JLCDF.get_var_data(files[1]), (2, 1))
+cdfpp_res = PyArray(Pycdfpp.get_var_data(files[1]))
+cdflib_res = PyArray(CDFlib.get_var_data(files[1]))
+@assert jl_res[.!isnan.(jl_res)] ≈ cdfpp_res[.!isnan.(cdfpp_res)]
+@assert jl_res[.!isnan.(jl_res)] ≈ cdflib_res[.!isnan.(cdflib_res)]
+
+result_read = run_benchmarks(files, libs, :get_var_data; evals=2, n=4) |> DataFrame
+```
+
+```{julia}
+draw(data(result_read) * base_plt)
+```
+
+## Full CDF file loading
+
+We request all variables values.
+
+```{julia}
+result_full = run_benchmarks(files, libs, :full_load; evals=2, n=2) |> DataFrame
+```
+
+```{julia}
+draw(data(result_full) * base_plt)
+```
+
+
+## Summary
+
+```{julia}
+result = vcat(result_open, result_list, result_read, result_full)
+```
+
+```{julia}
+plt = data(result) * mapping(layout=:task) * base_plt
+draw(plt; facet=(; linkxaxes=:none, linkyaxes=:none))
+```
+
+## Reproducibility
+
+::: {.callout-note collapse="true"}
+## This tutorial was built using these direct dependencies
+
+```{julia}
+using Pkg
+Pkg.status()
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Machine and Julia version information
+
+```{julia}
+using InteractiveUtils # hide
+versioninfo()
+```
+:::

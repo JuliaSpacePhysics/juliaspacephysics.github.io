@@ -2,3 +2,6 @@
 _site/
 .CondaPkg
 Manifest.toml
+data
+site_libs
+**/*.quarto_ipynb

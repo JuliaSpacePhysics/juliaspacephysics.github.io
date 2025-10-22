@@ -1,0 +1,7 @@
+[deps]
+AlgebraOfGraphics = "cbdf2221-f076-402e-a563-3d30da359d67"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+Chairmarks = "0ca39b1e-fe0b-4e98-acfc-b1656634c4de"
+CommonDataFormat = "a9737db6-c05c-4e48-868b-6bc41491d9d9"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"

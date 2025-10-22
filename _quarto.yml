@@ -26,6 +26,8 @@ format:
     theme:
       - cosmo
       - brand
+    code-fold: true
+    code-tools: true
     css: styles.css
     toc: true
     include-in-header:
@@ -43,3 +45,8 @@ format:
 # Global Variables to use in any qmd files using:
 # {{< meta site-url >}}
 site-url: https://juliaspacephysics.github.io
+
+execute:
+  freeze: auto  # re-render only when source changes
+
+engines: ['julia']

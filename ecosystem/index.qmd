@@ -130,3 +130,5 @@ This page lists all the packages that are part of or closely related to the [Jul
 - [JuliaAstro Ecosystem](https://juliaastro.org/home/ecosystem/) for astronomy and astrophysics packages
 - [JuliaPlasma Ecosystem](https://juliaplasma.github.io/) for plasma physics modeliing
 - [JuliaSpace](https://github.com/JuliaSpace) for satellite analysis
+- [Epicycle](https://genastro.github.io/Epicycle/Epicycle/dev/) for space mission analysis and design
+- [Julia Space Mission Design](https://github.com/JuliaSpaceMissionDesign) for space mission analysis and design

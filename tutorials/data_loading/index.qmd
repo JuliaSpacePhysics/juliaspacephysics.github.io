@@ -1,0 +1,110 @@
+---
+title: Load data from a variety of sources
+---
+
+We demonstrate to load data from a variety of data sources.
+
+```{julia}
+#| code-summary: Setup
+dir = "tutorials/data_loading"
+if isdir(dir)
+    cd(dir)
+end
+
+Pkg.activate(".")
+Pkg.resolve()
+Pkg.instantiate()
+
+using CairoMakie, SpacePhysicsMakie
+```
+
+## Get data with `CDAWeb`
+
+[CDAWeb.jl](https://github.com/JuliaSpacePhysics/CDAWeb.jl) provides direct access to NASA's CDAWeb RESTful services with local caching and fine-grained control over data retrieval.
+
+It could be installed at REPL via `using Pkg; Pkg.add("CDAWeb")`.
+
+```{julia}
+import CDAWeb
+using SpaceDataModel: times, getmeta, name
+
+# Fetch ACE magnetic field data
+data = CDAWeb.get_data("AC_H0_MFI", "Magnitude", "2023-01-02", "2023-01-03")
+```
+
+### Plot the data
+
+```{julia}
+using CDAWeb.CDFDatasets: Epoch
+using CairoMakie.Makie
+Makie.number_to_date(::Type{Epoch}, i) = Epoch(i)
+
+f = Figure()
+meta = getmeta(data)
+ax = Axis(f[1, 1]; xlabel="Time", ylabel="$(name(data)) [$(meta["UNITS"])]", title=meta["CATDESC"])
+t = times(data)
+lines!(t, data)
+f
+```
+
+## Get data with `Speasy`
+
+[Speasy.jl](https://github.com/SciQLop/Speasy.jl) provides functions to load data from main Space Physics WebServices (CDA,SSC,AMDA,..).
+
+It could be installed at REPL via `using Pkg; Pkg.add("Speasy")`.
+
+```{julia}
+import Speasy
+
+# da = get_data("amda/imf", "2016-6-2", "2016-6-5")
+da = Speasy.get_data("cda/OMNI_HRO_1MIN/Pressure", "2016-6-2", "2016-6-3"; sanitize=true)
+```
+
+### Plot the data
+
+```{julia}
+tplot(da)
+```
+
+## Get data using Heliophysics Application Programmer's Interface (HAPI)
+
+[HAPIClient.jl](https://github.com/JuliaSpacePhysics/HAPIClient.jl) provides functions to load data from HAPI-compliant servers.
+
+It could be installed at REPL via `using Pkg; Pkg.add("HAPIClient")`.
+
+```{julia}
+import HAPIClient
+
+vars = HAPIClient.get_data("CDAWeb/AC_H0_MFI/Magnitude,BGSEc", "2001-1-2", "2001-1-2T6")
+```
+
+### Plot the data
+
+```{julia}
+tplot(vars)
+```
+
+## Get data with PySPEDAS
+
+[PySPEDAS.jl](https://github.com/JuliaSpacePhysics/PySPEDAS.jl) provides a Julia interface to the [PySPEDAS](https://github.com/spedas/pyspedas) Python package, offering a similar API for Julia users to utilize the existing Python routines.
+
+It could be installed at REPL via `using Pkg; Pkg.add("PySPEDAS")`.
+
+```{julia}
+using SpacePhysicsMakie: tplot
+using PySPEDAS.Projects
+using DimensionalData
+using CairoMakie
+
+da = themis.fgm(["2020-04-20/06:00", "2020-04-20/08:00"], time_clip=true, probe="d");
+keys(da)
+# Same as more verbose `pyspedas.projects.themis.fgm(...)`
+```
+
+### Plot the data
+
+```{julia}
+f = Figure()
+tplot(f[1, 1], [da.thd_fgs_gsm, da.thd_fgs_btotal])
+f
+```

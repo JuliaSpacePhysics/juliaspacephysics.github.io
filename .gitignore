@@ -5,3 +5,4 @@ Manifest.toml
 data
 site_libs
 **/*.quarto_ipynb
+themis_data

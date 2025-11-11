@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://juliaspacephysics.github.io/tutorials/mms_e_mr/index.html</loc>
-    <lastmod>2025-10-22T02:57:00.169Z</lastmod>
+    <lastmod>2025-10-22T06:14:52.082Z</lastmod>
   </url>
   <url>
     <loc>https://juliaspacephysics.github.io/tutorials/index.html</loc>
-    <lastmod>2025-10-22T02:57:12.488Z</lastmod>
-  </url>
-  <url>
-    <loc>https://juliaspacephysics.github.io/ecosystem/index.html</loc>
-    <lastmod>2025-08-21T19:06:09.756Z</lastmod>
+    <lastmod>2025-11-11T06:16:59.950Z</lastmod>
   </url>
   <url>
     <loc>https://juliaspacephysics.github.io/index.html</loc>
     <lastmod>2025-06-20T22:56:44.669Z</lastmod>
   </url>
   <url>
+    <loc>https://juliaspacephysics.github.io/ecosystem/index.html</loc>
+    <lastmod>2025-11-11T05:34:15.920Z</lastmod>
+  </url>
+  <url>
+    <loc>https://juliaspacephysics.github.io/tutorials/data_loading/index.html</loc>
+    <lastmod>2025-11-11T06:11:30.110Z</lastmod>
+  </url>
+  <url>
     <loc>https://juliaspacephysics.github.io/tutorials/cdf/index.html</loc>
-    <lastmod>2025-10-22T04:27:54.850Z</lastmod>
+    <lastmod>2025-10-22T06:14:52.081Z</lastmod>
   </url>
 </urlset>

@@ -38,6 +38,12 @@ listing:
     fields: [name, api, github, description, category]
     include:
       category: magnetosphere
+  - id: libraries-mission
+    contents: main.yml
+    template: table.ejs
+    fields: [name, api, github, description, category]
+    include:
+      category: mission
 include-in-header:
   - text: |
       <style>
@@ -118,6 +124,11 @@ This page lists all the packages that are part of or closely related to the [Jul
 ## Ionosphere, Thermosphere and Mesosphere
 
 ::: {#libraries-itm}
+:::
+
+## Mission-specific
+
+::: {#libraries-mission}
 :::
 
 ## General Analysis

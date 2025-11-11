@@ -1,6 +1,6 @@
 - name: SPEDAS.jl
-  api: https://beforerr.github.io/SPEDAS.jl
-  github: https://github.com/Beforerr/SPEDAS.jl
+  api: https://juliaspacephysics.github.io/SPEDAS.jl
+  github: https://github.com/JuliaSpacePhysics/SPEDAS.jl
   description: Julia-based Space Physics Environment Data Analysis Software
   category: main
 
@@ -14,7 +14,7 @@
   api: ""
   github: https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl
   description: Space physics plotting utilities built on Makie.jl
-  category: main
+  category: analysis
 
 - name: GeoCotrans.jl
   api: https://juliaspacephysics.github.io/GeoCotrans.jl
@@ -52,6 +52,12 @@
   description: Common Data Format (CDF) reader for Julia (low-level)
   category: data
 
+- name: CDAWeb.jl
+  api: "https://juliaspacephysics.github.io/CDAWeb.jl"
+  github: https://github.com/JuliaSpacePhysics/CDAWeb.jl
+  description: Julia access to NASA's [CDAWeb](https://cdaweb.gsfc.nasa.gov/) space physics data
+  category: data
+
 - name: Speasy.jl
   api: "https://sciqlop.github.io/Speasy.jl/dev/"
   github: https://github.com/SciQLop/Speasy.jl
@@ -77,9 +83,9 @@
   category: data
 
 - name: VelocityDistributionFunctions.jl
-  api: "https://juliaspacephysics.github.io/VelocityDistributionFunctions.jl/dev/"
+  api: "https://juliaspacephysics.github.io/VelocityDistributionFunctions.jl"
   github: https://github.com/JuliaSpacePhysics/VelocityDistributionFunctions.jl
-  description: Analysis tools for particle velocity distribution functions 
+  description: Analysis tools for particle velocity distribution functions
   category: analysis
 
 - name: Beforerr/TimeseriesUtilities.jl
@@ -105,3 +111,9 @@
   github: https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl
   description: Minimum or maximum variance analysis (MVA)
   category: analysis
+
+- name: ELFINData.jl
+  api: "https://juliaspacephysics.github.io/ELFINData.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/ELFINData.jl
+  description: Electron Losses and Fields Investigation ([Wikipedia](https://en.wikipedia.org/wiki/ELFIN))
+  category: mission

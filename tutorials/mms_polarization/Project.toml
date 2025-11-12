@@ -1,0 +1,9 @@
+[deps]
+CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
+PlasmaWaves = "12efb907-3f94-4823-94fe-a707db5a5005"
+PySPEDAS = "668d2cef-03a7-4c36-a521-7d1c6ddc8846"
+PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"
+SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
+SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"

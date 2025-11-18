@@ -1,8 +1,8 @@
 ---
-title: Load data from a variety of sources
+title: Load and visualize data from a variety of sources
 ---
 
-We demonstrate to load data from a variety of data sources.
+We demonstrate here how to load data from a variety of data sources and visualize them using [`SpacePhysicsMakie.jl`](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/).
 
 ```{julia}
 #| code-summary: Setup
@@ -26,25 +26,16 @@ It could be installed at REPL via `using Pkg; Pkg.add("CDAWeb")`.
 
 ```{julia}
 import CDAWeb
-using SpaceDataModel: times, getmeta, name
-
+t0 = "2024-01-02"
+t1 = "2024-01-03"
 # Fetch ACE magnetic field data
-data = CDAWeb.get_data("AC_H0_MFI", "Magnitude", "2023-01-02", "2023-01-03")
+data1 = CDAWeb.get_data("AC_H0_SWE", "V_GSE", t0, t1)
 ```
 
 ### Plot the data
 
 ```{julia}
-using CDAWeb.CDFDatasets: Epoch
-using CairoMakie.Makie
-Makie.number_to_date(::Type{Epoch}, i) = Epoch(i)
-
-f = Figure()
-meta = getmeta(data)
-ax = Axis(f[1, 1]; xlabel="Time", ylabel="$(name(data)) [$(meta["UNITS"])]", title=meta["CATDESC"])
-t = times(data)
-lines!(t, data)
-f
+tplot(data1, add_title=true)
 ```
 
 ## Get data with `Speasy`
@@ -56,14 +47,13 @@ It could be installed at REPL via `using Pkg; Pkg.add("Speasy")`.
 ```{julia}
 import Speasy
 
-# da = get_data("amda/imf", "2016-6-2", "2016-6-5")
-da = Speasy.get_data("cda/OMNI_HRO_1MIN/Pressure", "2016-6-2", "2016-6-3"; sanitize=true)
+data2 = Speasy.get_data("cda/OMNI_HRO_1MIN/Pressure", t0, t1; sanitize=true)
 ```
 
 ### Plot the data
 
 ```{julia}
-tplot(da)
+tplot(data2)
 ```
 
 ## Get data using Heliophysics Application Programmer's Interface (HAPI)
@@ -75,7 +65,7 @@ It could be installed at REPL via `using Pkg; Pkg.add("HAPIClient")`.
 ```{julia}
 import HAPIClient
 
-vars = HAPIClient.get_data("CDAWeb/AC_H0_MFI/Magnitude,BGSEc", "2001-1-2", "2001-1-2T6")
+vars = HAPIClient.get_data("CDAWeb/AC_H0_MFI/Magnitude,BGSEc", t0, t1)
 ```
 
 ### Plot the data
@@ -84,27 +74,49 @@ vars = HAPIClient.get_data("CDAWeb/AC_H0_MFI/Magnitude,BGSEc", "2001-1-2", "2001
 tplot(vars)
 ```
 
-## Get data with PySPEDAS
+## Get data with `PySPEDAS`
 
 [PySPEDAS.jl](https://github.com/JuliaSpacePhysics/PySPEDAS.jl) provides a Julia interface to the [PySPEDAS](https://github.com/spedas/pyspedas) Python package, offering a similar API for Julia users to utilize the existing Python routines.
 
 It could be installed at REPL via `using Pkg; Pkg.add("PySPEDAS")`.
 
 ```{julia}
-using SpacePhysicsMakie: tplot
 using PySPEDAS.Projects
-using DimensionalData
-using CairoMakie
 
-da = themis.fgm(["2020-04-20/06:00", "2020-04-20/08:00"], time_clip=true, probe="d");
-keys(da)
 # Same as more verbose `pyspedas.projects.themis.fgm(...)`
+tvars = themis.fgm([t0, t1], time_clip=true, probe="d");
 ```
 
 ### Plot the data
 
 ```{julia}
-f = Figure()
-tplot(f[1, 1], [da.thd_fgs_gsm, da.thd_fgs_btotal])
-f
+tplot((tvars.thd_fgs_gsm, tvars.thd_fgs_btotal))
 ```
+
+## Composite plot
+
+Combine all the data into a single plot with multiple panels.
+
+```{julia}
+tplot((data1, data2, vars..., tvars.thd_fgs_gsm), add_title=true)
+```
+
+## Reproducibility
+
+::: {.callout-note collapse="true"}
+## This tutorial was built using these direct dependencies
+
+```{julia}
+using Pkg
+Pkg.status()
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Machine and Julia version information
+
+```{julia}
+using InteractiveUtils # hide
+versioninfo()
+```
+:::

@@ -14,7 +14,7 @@
   api: ""
   github: https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl
   description: Space physics plotting utilities built on Makie.jl
-  category: analysis
+  category: main
 
 - name: GeoCotrans.jl
   api: https://juliaspacephysics.github.io/GeoCotrans.jl
@@ -117,3 +117,15 @@
   github: https://github.com/JuliaSpacePhysics/ELFINData.jl
   description: Electron Losses and Fields Investigation ([Wikipedia](https://en.wikipedia.org/wiki/ELFIN))
   category: mission
+
+- name: EISCATData.jl
+  api: "https://juliaspacephysics.github.io/EISCATData.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/EISCATData.jl
+  description: Access and process EISCAT incoherent scatter radar data
+  category: data
+
+- name: DMSPData.jl
+  api: "https://juliaspacephysics.github.io/DMSPData.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/DMSPData.jl
+  description: Access and process Defense Meteorological Satellite Program data
+  category: data

@@ -1,5 +1,6 @@
 [deps]
 CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
+CDFDatasets = "075ae62b-f872-4368-b383-31e3aa6c3154"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
 HAPIClient = "0ce0b37c-8851-4c5b-98a3-e691a5f19c53"
@@ -8,5 +9,12 @@ SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
 SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
 Speasy = "09b745ad-c67d-442f-94a6-c7f4d1e4d861"
 
+[sources]
+CDFDatasets = {path = "/Users/zijin/.julia/dev/CDFDatasets"}
+SpaceDataModel = {path = "/Users/zijin/.julia/dev/SpaceDataModel"}
+SpacePhysicsMakie = {path = "/Users/zijin/.julia/dev/SpacePhysicsMakie"}
+
 [compat]
+CDFDatasets = "0.1.5"
+SpacePhysicsMakie = "0.2.0"
 Speasy = "0.4.8"

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.9.8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-095e6f6405c331e3b33229e03003579f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -224,101 +224,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span>, <span class="bu">SpacePhysicsMakie</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-green-fg ansi-bold">  Activating</span> project at `~/src/juliaspacephysics.github.io/tutorials/data_loading`
-<span class="ansi-cyan-fg ansi-bold">     Project</span> No packages added to or removed from `~/src/juliaspacephysics.github.io/tutorials/data_loading/Project.toml`
-<span class="ansi-cyan-fg ansi-bold">    Manifest</span> No packages added to or removed from `~/src/juliaspacephysics.github.io/tutorials/data_loading/Manifest.toml`
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-    546.6 ms<span class="ansi-green-fg">  ✓ </span>SpaceDataModel
-   1172.4 ms<span class="ansi-green-fg">  ✓ </span>SpaceDataModel → SpaceDataModelCommonDataModelExt
-   1187.2 ms<span class="ansi-green-fg">  ✓ </span>SpaceDataModel → SpaceDataModelDimensionalDataExt
-   2709.8 ms<span class="ansi-green-fg">  ✓ </span>HAPIClient
-   1467.3 ms<span class="ansi-green-fg">  ✓ </span>HAPIClient → DimensionalDataExt
-PySPEDAS<span class="ansi-yellow-fg"> Waiting for background task / IO / timer.</span>
-[pid 93887] waiting for IO to finish:
- Handle type        uv_handle_t-&gt;data
- timer              0x77f255b00-&gt;0x110907c90
-This means that a package has started a background task or event source that has not finished running. For precompilation to complete successfully, the event source needs to be closed explicitly. See the developer documentation on fixing precompilation hangs for more help.
-   8306.7 ms<span class="ansi-green-fg">  ✓ </span>Speasy
-   2504.0 ms<span class="ansi-green-fg">  ✓ </span>Speasy → SpeasyDimensionalDataExt
-   9856.1 ms<span class="ansi-green-fg">  ✓ </span>SpacePhysicsMakie
-  14973.5 ms<span class="ansi-green-fg">  ✓ </span>PySPEDAS
-   5160.1 ms<span class="ansi-green-fg">  ✓ </span>CDFDatasets → CDFDatasetsSpacePhysicsMakieExt
-   5262.6 ms<span class="ansi-green-fg">  ✓ </span>SpacePhysicsMakie → SpacePhysicsMakieHAPIClientExt
-  11 dependencies successfully precompiled in 19 seconds. 379 already precompiled.
-  <span class="ansi-yellow-fg">2</span> dependencies had output during precompilation:<span class="ansi-yellow-fg">
-┌ </span>Speasy<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/DimensionalData/FWnw9/CondaPkg.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/Speasy/ZygLN/CondaPkg.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/CondaPkg/0UqYV/CondaPkg.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/PythonCall/wkBj7/CondaPkg.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/PySPEDAS/IGdx7/CondaPkg.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Initialising pixi<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">/Users/zijin/.julia/artifacts/d2fecc2a9fa3eac2108d3e4d9d155e6ff5dfd0b2/bin/pixi</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">init</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">--format pixi</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">/Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg</span><span class="ansi-yellow-fg">
-│  </span>✔ Created /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Wrote /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[dependencies]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">netcdf4 = "*"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">openssl = "&gt;=3, &lt;3.6, &gt;=3, &lt;3.6"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">uv = "&gt;=0.4"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">xarray = "*"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">sqlite = "!=3.49.1"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">numpy = "*"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    [dependencies.python]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    channel = "conda-forge"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    build = "*cp*"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    version = "&gt;=3.10,&lt;3.14, 3.13.*"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[project]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">name = ".CondaPkg"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">platforms = ["osx-arm64"]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">channels = ["conda-forge"]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">channel-priority = "strict"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">description = "automatically generated by CondaPkg.jl"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[pypi-dependencies.speasy]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">git = "https://github.com/SciQLop/speasy"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[pypi-dependencies.pyspedas]</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">git = "https://github.com/spedas/pyspedas"</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Installing packages<span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">/Users/zijin/.julia/artifacts/d2fecc2a9fa3eac2108d3e4d9d155e6ff5dfd0b2/bin/pixi</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">install</span><span class="ansi-yellow-fg">
-│  </span><span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">--manifest-path /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml</span><span class="ansi-yellow-fg">
-│  </span>✔ The default environment has been installed.<span class="ansi-yellow-fg">
-└  </span><span class="ansi-yellow-fg">
-┌ </span>PySPEDAS<span class="ansi-yellow-fg">
-│  </span><span class="ansi-cyan-fg ansi-bold">┌ </span><span class="ansi-cyan-fg ansi-bold">Info: </span>CondaPkg: Waiting for lock to be freed. You may delete this file if no other process is resolving.<span class="ansi-yellow-fg">
-│  </span><span class="ansi-cyan-fg ansi-bold">└ </span>  lock_file = "/Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/lock"<span class="ansi-yellow-fg">
-│  </span><span class="ansi-yellow-fg">
-│  </span>[pid 93887] waiting for IO to finish:<span class="ansi-yellow-fg">
-│  </span> Handle type        uv_handle_t-&gt;data<span class="ansi-yellow-fg">
-│  </span> timer              0x77f255b00-&gt;0x110907c90<span class="ansi-yellow-fg">
-│  </span>This means that a package has started a background task or event source that has not finished running. For precompilation to complete successfully, the event source needs to be closed explicitly. See the developer documentation on fixing precompilation hangs for more help.<span class="ansi-yellow-fg">
-└  </span>
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-   1301.6 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerLaTeXStringsExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 1 seconds
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-    760.1 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerJSONExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 1 seconds
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-    711.5 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerTablesExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 1 seconds
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-   4937.6 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerMakieExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 5 seconds
-<span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-   4454.0 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerCairoMakieExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 4 seconds
-</pre>
-</div>
-</div>
 </div>
 <section id="get-data-with-cdaweb" class="level2">
 <h2 class="anchored" data-anchor-id="get-data-with-cdaweb">Get data with <code>CDAWeb</code></h2>
@@ -333,14 +238,6 @@ This means that a package has started a background task or event source that has
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch ACE magnetic field data</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> CDAWeb.<span class="fu">get_data</span>(<span class="st">"AC_H0_SWE"</span>, <span class="st">"V_GSE"</span>, t0, t1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-    764.6 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerJSON3Ext<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 1 seconds
-</pre>
-</div>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-green-fg">V_GSE</span> (3 × 1350)
@@ -393,9 +290,48 @@ This means that a package has started a background task or event source that has
 </details>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
-<pre><span class="ansi-green-fg ansi-bold">Precompiling</span> packages...
-   2964.1 ms<span class="ansi-green-fg">  ✓ </span>QuartoNotebookWorkerPythonCallExt<span class="ansi-bright-black-fg"> (serial)</span>
-  1 dependency successfully precompiled in 3 seconds
+<pre><span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/DimensionalData/FWnw9/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/Speasy/ZygLN/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/CondaPkg/0UqYV/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/PythonCall/wkBj7/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Found dependencies: /Users/zijin/.julia/packages/PySPEDAS/IGdx7/CondaPkg.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Initialising pixi
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">/Users/zijin/.julia/artifacts/d2fecc2a9fa3eac2108d3e4d9d155e6ff5dfd0b2/bin/pixi</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">init</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">--format pixi</span>
+<span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">/Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg</span>
+✔ Created /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Wrote /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[dependencies]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">netcdf4 = "*"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">openssl = "&gt;=3, &lt;3.6, &gt;=3, &lt;3.6"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">uv = "&gt;=0.4"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">xarray = "*"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">sqlite = "!=3.49.1"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">numpy = "*"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ 
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    [dependencies.python]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    channel = "conda-forge"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    build = "*cp*"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">    version = "&gt;=3.10,&lt;3.14, 3.13.*"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ 
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[project]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">name = ".CondaPkg"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">platforms = ["osx-arm64"]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">channels = ["conda-forge"]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">channel-priority = "strict"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">description = "automatically generated by CondaPkg.jl"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ 
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[pypi-dependencies.speasy]</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">git = "https://github.com/SciQLop/speasy"</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ 
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">[pypi-dependencies.pyspedas]</span>
+<span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">git = "https://github.com/spedas/pyspedas"</span>
+<span class="ansi-green-fg ansi-bold">    CondaPkg </span>Installing packages
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">/Users/zijin/.julia/artifacts/d2fecc2a9fa3eac2108d3e4d9d155e6ff5dfd0b2/bin/pixi</span>
+<span class="ansi-green-fg ansi-bold">             </span>│ <span class="ansi-bright-black-fg">install</span>
+<span class="ansi-green-fg ansi-bold">             </span>└ <span class="ansi-bright-black-fg">--manifest-path /Users/zijin/src/juliaspacephysics.github.io/tutorials/data_loading/.CondaPkg/pixi.toml</span>
+✔ The default environment has been installed.
 </pre>
 </div>
 </div>
@@ -491,8 +427,8 @@ Metadata - JSON.Object{String, Any} with 7 entries:
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> themis.<span class="fu">fgm</span>([t0, t1], time_clip<span class="op">=</span><span class="cn">true</span>, probe<span class="op">=</span><span class="st">"d"</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>23-Nov-25 23:04:03: Downloading remote index: https://themis.ssl.berkeley.edu/data/themis/thd/l2/fgm/2024/
-23-Nov-25 23:04:05: File is current: /Users/zijin/data/themis/thd/l2/fgm/2024/thd_l2_fgm_20240102_v01.cdf</code></pre>
+<pre><code>23-Nov-25 23:12:21: Downloading remote index: https://themis.ssl.berkeley.edu/data/themis/thd/l2/fgm/2024/
+23-Nov-25 23:12:22: File is current: /Users/zijin/data/themis/thd/l2/fgm/2024/thd_l2_fgm_20240102_v01.cdf</code></pre>
 </div>
 </div>
 <section id="plot-the-data-3" class="level3">
@@ -1064,120 +1000,121 @@ Environment:
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: Setup</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>dir <span class="op">=</span> <span class="st">"tutorials/data_loading"</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="fu">isdir</span>(dir)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cd</span>(dir)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"."</span>)</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">resolve</span>()</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span>, <span class="bu">SpacePhysicsMakie</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `CDAWeb`</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">CDAWeb.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/CDAWeb.jl)</span> provides direct access to NASA's CDAWeb RESTful services with local caching and fine-grained control over data retrieval.</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("CDAWeb")`</span>.</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">CDAWeb</span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="st">"2024-01-02"</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> <span class="st">"2024-01-03"</span></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch ACE magnetic field data</span></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> CDAWeb.<span class="fu">get_data</span>(<span class="st">"AC_H0_SWE"</span>, <span class="st">"V_GSE"</span>, t0, t1)</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(data1, add_title<span class="op">=</span><span class="cn">true</span>)</span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `Speasy`</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Speasy.jl</span><span class="co">](https://github.com/SciQLop/Speasy.jl)</span> provides functions to load data from main Space Physics WebServices (CDA,SSC,AMDA,..).</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("Speasy")`</span>.</span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Speasy</span></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> Speasy.<span class="fu">get_data</span>(<span class="st">"cda/OMNI_HRO_1MIN/Pressure"</span>, t0, t1; sanitize<span class="op">=</span><span class="cn">true</span>)</span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(data2)</span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data using Heliophysics Application Programmer's Interface (HAPI)</span></span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">HAPIClient.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/HAPIClient.jl)</span> provides functions to load data from HAPI-compliant servers.</span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("HAPIClient")`</span>.</span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">HAPIClient</span></span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>vars <span class="op">=</span> HAPIClient.<span class="fu">get_data</span>(<span class="st">"CDAWeb/AC_H0_MFI/Magnitude,BGSEc"</span>, t0, t1)</span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(vars)</span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `PySPEDAS`</span></span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PySPEDAS.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/PySPEDAS.jl)</span> provides a Julia interface to the <span class="co">[</span><span class="ot">PySPEDAS</span><span class="co">](https://github.com/spedas/pyspedas)</span> Python package, offering a similar API for Julia users to utilize the existing Python routines.</span>
-<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("PySPEDAS")`</span>.</span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PySPEDAS.Projects</span></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as more verbose `pyspedas.projects.themis.fgm(...)`</span></span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> themis.<span class="fu">fgm</span>([t0, t1], time_clip<span class="op">=</span><span class="cn">true</span>, probe<span class="op">=</span><span class="st">"d"</span>);</span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>((tvars.thd_fgs_gsm, tvars.thd_fgs_btotal))</span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Composite plot</span></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>Combine all the data into a single plot with multiple panels.</span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>((data1, data2, vars<span class="op">...</span>, tvars.thd_fgs_gsm), add_title<span class="op">=</span><span class="cn">true</span>)</span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility</span></span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## This tutorial was built using these direct dependencies</span></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">status</span>()</span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Machine and Julia version information</span></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">InteractiveUtils</span> <span class="co"># hide</span></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="fu">versioninfo</span>()</span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>dir <span class="op">=</span> <span class="st">"tutorials/data_loading"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="fu">isdir</span>(dir)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cd</span>(dir)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"."</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">resolve</span>()</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span>, <span class="bu">SpacePhysicsMakie</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `CDAWeb`</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">CDAWeb.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/CDAWeb.jl)</span> provides direct access to NASA's CDAWeb RESTful services with local caching and fine-grained control over data retrieval.</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("CDAWeb")`</span>.</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">CDAWeb</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="st">"2024-01-02"</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> <span class="st">"2024-01-03"</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch ACE magnetic field data</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> CDAWeb.<span class="fu">get_data</span>(<span class="st">"AC_H0_SWE"</span>, <span class="st">"V_GSE"</span>, t0, t1)</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(data1, add_title<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `Speasy`</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Speasy.jl</span><span class="co">](https://github.com/SciQLop/Speasy.jl)</span> provides functions to load data from main Space Physics WebServices (CDA,SSC,AMDA,..).</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("Speasy")`</span>.</span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Speasy</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> Speasy.<span class="fu">get_data</span>(<span class="st">"cda/OMNI_HRO_1MIN/Pressure"</span>, t0, t1; sanitize<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(data2)</span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data using Heliophysics Application Programmer's Interface (HAPI)</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">HAPIClient.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/HAPIClient.jl)</span> provides functions to load data from HAPI-compliant servers.</span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("HAPIClient")`</span>.</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">HAPIClient</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>vars <span class="op">=</span> HAPIClient.<span class="fu">get_data</span>(<span class="st">"CDAWeb/AC_H0_MFI/Magnitude,BGSEc"</span>, t0, t1)</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(vars)</span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data with `PySPEDAS`</span></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">PySPEDAS.jl</span><span class="co">](https://github.com/JuliaSpacePhysics/PySPEDAS.jl)</span> provides a Julia interface to the <span class="co">[</span><span class="ot">PySPEDAS</span><span class="co">](https://github.com/spedas/pyspedas)</span> Python package, offering a similar API for Julia users to utilize the existing Python routines.</span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>It could be installed at REPL via <span class="in">`using Pkg; Pkg.add("PySPEDAS")`</span>.</span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PySPEDAS.Projects</span></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as more verbose `pyspedas.projects.themis.fgm(...)`</span></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> themis.<span class="fu">fgm</span>([t0, t1], time_clip<span class="op">=</span><span class="cn">true</span>, probe<span class="op">=</span><span class="st">"d"</span>);</span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot the data</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>((tvars.thd_fgs_gsm, tvars.thd_fgs_btotal))</span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Composite plot</span></span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>Combine all the data into a single plot with multiple panels.</span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>((data1, data2, vars<span class="op">...</span>, tvars.thd_fgs_gsm), add_title<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility</span></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## This tutorial was built using these direct dependencies</span></span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">status</span>()</span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Machine and Julia version information</span></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">InteractiveUtils</span> <span class="co"># hide</span></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="fu">versioninfo</span>()</span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

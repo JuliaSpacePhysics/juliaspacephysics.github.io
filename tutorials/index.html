@@ -158,8 +158,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#examples-in-the-wild" id="toc-examples-in-the-wild" class="nav-link active" data-scroll-target="#examples-in-the-wild">Examples in the wild</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -184,18 +190,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.</p>
-<p>You can begin with the Getting Started guide for <a href="https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/"><code>SPEDAS.jl</code></a>, which introduces the basics of using <code>SPEDAS.jl</code>.</p>
+<p>You can begin with the Getting Started guide for <a href="https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/"><code>SPEDAS.jl</code></a>.</p>
 <p>Additional tutorials include:</p>
 <ul>
 <li><a href="data_loading/">Loading data from a variety of sources</a></li>
+<li><a href="https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/">Speasy example: flexible layout and interactive tplot</a></li>
 <li><a href="mms_e_mr/">MMS observations of electron-scale measurements of magnetic reconnection</a></li>
 <li><a href="cdf/">CDF reader benchmarks</a></li>
 <li><a href="https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/">SOHO Velocity Dispersion Analysis (VDA) analysis</a></li>
+</ul>
+<section id="examples-in-the-wild" class="level2">
+<h2 class="anchored" data-anchor-id="examples-in-the-wild">Examples in the wild</h2>
+<ul>
+<li><a href="https://beforerr.github.io/beforerr/docs/projects/coding/2025_SpaceTools.jl/">Blog post</a></li>
+<li><a href="https://beforerr.github.io/beforerr/docs/courses/epss261/homework">EPSS 261 - Data Analysis Methods in Space Physics</a> : Comprehensive examples of using <code>SPEDAS.jl</code> in a graduate course (the start of <code>SPEDAS.jl</code>)</li>
 </ul>
 
 
 <!-- -->
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -655,18 +669,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>You can begin with the Getting Started guide for <span class="co">[</span><span class="ot">`SPEDAS.jl`</span><span class="co">](https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/)</span>, which introduces the basics of using <span class="in">`SPEDAS.jl`</span>.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>You can begin with the Getting Started guide for <span class="co">[</span><span class="ot">`SPEDAS.jl`</span><span class="co">](https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/)</span>.</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Additional tutorials include:</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Loading data from a variety of sources</span><span class="co">](data_loading/)</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">MMS observations of electron-scale measurements of magnetic reconnection</span><span class="co">](mms_e_mr/)</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">CDF reader benchmarks</span><span class="co">](cdf/)</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">SOHO Velocity Dispersion Analysis (VDA) analysis</span><span class="co">](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Speasy example: flexible layout and interactive tplot</span><span class="co">](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">MMS observations of electron-scale measurements of magnetic reconnection</span><span class="co">](mms_e_mr/)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">CDF reader benchmarks</span><span class="co">](cdf/)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">SOHO Velocity Dispersion Analysis (VDA) analysis</span><span class="co">](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples in the wild</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Blog post</span><span class="co">](https://beforerr.github.io/beforerr/docs/projects/coding/2025_SpaceTools.jl/)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">EPSS 261 - Data Analysis Methods in Space Physics</span><span class="co">](https://beforerr.github.io/beforerr/docs/courses/epss261/homework)</span> :  Comprehensive examples of using <span class="in">`SPEDAS.jl`</span> in a graduate course (the start of <span class="in">`SPEDAS.jl`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

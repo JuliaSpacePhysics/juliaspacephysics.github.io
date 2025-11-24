@@ -25,7 +25,14 @@
     "href": "tutorials/index.html",
     "title": "Tutorials",
     "section": "",
-    "text": "We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.\nYou can begin with the Getting Started guide for SPEDAS.jl, which introduces the basics of using SPEDAS.jl.\nAdditional tutorials include:\n\nLoading data from a variety of sources\nMMS observations of electron-scale measurements of magnetic reconnection\nCDF reader benchmarks\nSOHO Velocity Dispersion Analysis (VDA) analysis\n\n\n\n\n\n\n Back to top"
+    "text": "We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.\nYou can begin with the Getting Started guide for SPEDAS.jl.\nAdditional tutorials include:"
+  },
+  {
+    "objectID": "tutorials/index.html#examples-in-the-wild",
+    "href": "tutorials/index.html#examples-in-the-wild",
+    "title": "Tutorials",
+    "section": "Examples in the wild",
+    "text": "Examples in the wild\n\nBlog post\nEPSS 261 - Data Analysis Methods in Space Physics : Comprehensive examples of using SPEDAS.jl in a graduate course (the start of SPEDAS.jl)"
   },
   {
     "objectID": "index.html",

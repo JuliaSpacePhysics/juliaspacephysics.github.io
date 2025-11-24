@@ -122,10 +122,10 @@
   api: "https://juliaspacephysics.github.io/EISCATData.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/EISCATData.jl
   description: Access and process EISCAT incoherent scatter radar data
-  category: data
+  category: mission
 
 - name: DMSPData.jl
   api: "https://juliaspacephysics.github.io/DMSPData.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/DMSPData.jl
   description: Access and process Defense Meteorological Satellite Program data
-  category: data
+  category: mission

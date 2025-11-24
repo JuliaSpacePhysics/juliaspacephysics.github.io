@@ -6,6 +6,7 @@ We demonstrate here how to load data from a variety of data sources and visualiz
 
 ```{julia}
 #| code-summary: Setup
+#| output: false
 dir = "tutorials/data_loading"
 if isdir(dir)
     cd(dir)

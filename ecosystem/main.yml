@@ -22,6 +22,12 @@
   description: Coordinate transformations between common geocentric systems
   category: main
 
+- name: TestParticle.jl
+  api: "https://henry2004y.github.io/TestParticle.jl/"
+  github: https://github.com/henry2004y/TestParticle.jl
+  description: Test particle tracing in electromagnetic field
+  category: main
+
 - name: SolarEnergeticParticle.jl
   api: "https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl

@@ -143,3 +143,5 @@ This page lists all the packages that are part of or closely related to the [Jul
 - [JuliaSpace](https://github.com/JuliaSpace) for satellite analysis
 - [Epicycle](https://genastro.github.io/Epicycle/Epicycle/dev/) for space mission analysis and design
 - [Julia Space Mission Design](https://github.com/JuliaSpaceMissionDesign) for space mission analysis and design
+- [Project Torrey Pines](https://github.com/ProjectTorreyPines) : FUsion Synthesis Engine
+- [WISTELL](https://gitlab.com/wistell): Physics packages from the Wisconsin Center for Plasma Theory and Computation focused on stellarator physics and optimization

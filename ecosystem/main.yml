@@ -94,6 +94,18 @@
   description: Analysis tools for particle velocity distribution functions
   category: analysis
 
+- name: PlasmaWaves.jl
+  api: https://juliaspacephysics.github.io/PlasmaWaves.jl
+  github: https://github.com/JuliaSpacePhysics/PlasmaWaves.jl
+  description: Plasma wave analysis, including polarization and propagation calculations
+  category: analysis
+
+- name: PlasmaBO.jl
+  api: https://juliaspacephysics.github.io/PlasmaBO.jl
+  github: https://github.com/JuliaSpacePhysics/PlasmaBO.jl
+  description: Plasma electromagnetic dispersion-relation solver
+  category: analysis
+
 - name: Beforerr/TimeseriesUtilities.jl
   api: https://beforerr.github.io/TimeseriesUtilities.jl
   github: https://github.com/Beforerr/TimeseriesUtilities.jl
@@ -116,6 +128,12 @@
   api: "https://juliaspacephysics.github.io/MinimumVarianceAnalysis.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/MinimumVarianceAnalysis.jl
   description: Minimum or maximum variance analysis (MVA)
+  category: analysis
+
+- name: MultiSpacecraftAnalysis.jl
+  api: https://juliaspacephysics.github.io/MultiSpacecraftAnalysis.jl
+  github: https://github.com/JuliaSpacePhysics/MultiSpacecraftAnalysis.jl
+  description: Multi-spacecraft analysis
   category: analysis
 
 - name: ELFINData.jl

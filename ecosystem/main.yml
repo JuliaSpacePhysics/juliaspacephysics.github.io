@@ -28,6 +28,12 @@
   description: Test particle tracing in electromagnetic field
   category: main
 
+- name: SpaceWeather.jl
+  api: https://juliaspacephysics.github.io/SpaceWeather.jl/dev/
+  github: https://github.com/JuliaSpacePhysics/SpaceWeather.jl
+  description: Easy access to space weather indices and data
+  category: helio
+
 - name: SolarEnergeticParticle.jl
   api: "https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/SolarEnergeticParticle.jl

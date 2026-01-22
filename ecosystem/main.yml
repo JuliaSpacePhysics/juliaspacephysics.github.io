@@ -52,6 +52,12 @@
   description: Julia wrapper for the IRBEM (International Radiation Belt Environment Modeling)
   category: magnetosphere
 
+- name: TsyganenkoModels.jl
+  api: "https://juliaspacephysics.github.io/TsyganenkoModels.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/TsyganenkoModels.jl
+  description: Modeling of Earth's Magnetosphere Using Spacecraft Magnetometer Data
+  category: magnetosphere
+
 - name: CDFDatasets.jl
   api: "https://juliaspacephysics.github.io/CDFDatasets.jl/dev/"
   github: https://github.com/JuliaSpacePhysics/CDFDatasets.jl
@@ -93,6 +99,12 @@
   github: https://github.com/JuliaSpacePhysics/PySPEDAS.jl
   description: A Julia wrapper for the Python SPEDAS library
   category: data
+
+- name: SunPy.jl
+  api: "https://juliaspacephysics.github.io/SunPy.jl/dev/"
+  github: https://github.com/JuliaSpacePhysics/SunPy.jl
+  description: A Julia wrapper around [sunpy](https://sunpy.org/)
+  category: [helio, data]
 
 - name: VelocityDistributionFunctions.jl
   api: "https://juliaspacephysics.github.io/VelocityDistributionFunctions.jl"

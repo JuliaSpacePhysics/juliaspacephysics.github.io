@@ -1,0 +1,143 @@
+---
+title: "Getting Started with JuliaSpacePhysics"
+subtitle: "A quick tour of the ecosystem"
+format:
+  html: default
+  ipynb: default
+---
+
+This tutorial provides a quick introduction to the JuliaSpacePhysics ecosystem, demonstrating how to load, analyze, and visualize space physics data using Julia.
+
+<a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+## What is JuliaSpacePhysics?
+
+JuliaSpacePhysics is a collection of Julia packages for space physics research, providing tools for:
+
+- **Data access**: Loading data from CDAWeb, HAPI servers, Madrigal database, and other sources
+- **Coordinate transformations**: Converting between GSE, GSM, SM, and other coordinate systems
+- **Magnetic field models**: IGRF, Tsyganenko models, and planetary field models
+- **Analysis**: Plasma wave and instabilities analysis, velocity distribution analysis, minimum variance analysis, and more
+
+```{julia}
+#| code-summary: "Setup: install the required packages"
+#| output: false
+using Pkg
+Pkg.resolve()
+Pkg.add(["CDAWeb", "CairoMakie", "SpacePhysicsMakie"])
+```
+
+## Loading Space Physics Data
+
+The ecosystem provides multiple ways to access space physics data. Here we demonstrate using `CDAWeb.jl` to fetch data from NASA's Coordinated Data Analysis Web.
+
+Let's load ACE solar wind velocity data for a day in January 2024:
+
+```{julia}
+using CDAWeb
+
+t0 = "2024-01-02"
+t1 = "2024-01-03"
+
+ace_velocity = get_data("AC_H0_SWE", t0, t1)["V_GSE"]
+```
+
+We can also load high-resolution OMNI data which provides solar wind parameters propagated to the Earth's bow shock:
+
+```{julia}
+omni_dataset = get_data("OMNI_HRO_1MIN", t0, t1; clip=true)
+omni_pressure = omni_dataset["Pressure"]
+```
+
+## Visualizing the Data
+
+`SpacePhysicsMakie.jl` provides the `tplot` function for creating publication-quality time-series plots:
+
+### Single Variable Plot
+
+```{julia}
+using SpacePhysicsMakie, CairoMakie
+
+tplot(ace_velocity, add_title=true)
+```
+
+### Multi-Panel Plot
+
+Combine multiple variables into a single figure with stacked panels:
+
+```{julia}
+tplot((ace_velocity, omni_pressure), add_title=true)
+```
+
+## Magnetic Field Models
+
+The ecosystem includes sophisticated magnetic field models for Earth and other planets. This section demonstrates how to use Tsyganenko models for Earth's magnetosphere and planetary field models for other solar system bodies.
+
+First, install the required packages:
+
+```{julia}
+using Pkg
+Pkg.add(["PlanetaryMagneticFields", "TsyganenkoModels", "SpaceDataModel", "CDAWeb", "CairoMakie", "GeoMakie", "SpacePhysicsMakie"])
+```
+
+### Earth Magnetosphere: Tsyganenko Models
+
+Let's fetch MMS1 spacecraft data, then calculate the magnetic field along the trajectory using the Tsyganenko-IGRF combined model `TsyIGRF` provided by [`TsyganenkoModels.jl`](https://juliaspacephysics.github.io/TsyganenkoModels.jl/dev/):
+
+```{julia}
+using TsyganenkoModels
+using CDAWeb, DimensionalData
+using SpacePhysicsMakie, CairoMakie
+using SpaceDataModel
+
+dataset = CDAWeb.get_data("MMS1_MEC_SRVY_L2_EPHT89Q", "2015-10-16", "2015-10-17")
+r = dataset["mms1_mec_r_gsm"] |> DimArray
+v = dataset["mms1_mec_v_gsm"] |> DimArray
+tplot([r, v])
+```
+
+```{julia}
+model = TsyIGRF()
+
+Bgsm = setmeta(
+    model(r; scale=1 / 6371.2),
+    "LABLAXIS" => "mms1_mec_r_gsm_bt89", "UNITS" => "nT", "LABL_PTR_1" => ["Bx", "By", "Bz"],
+)
+tplot([r, v, Bgsm])
+```
+
+### Planetary Magnetic Fields
+
+The [`PlanetaryMagneticFields.jl`](https://juliaspacephysics.github.io/PlanetaryMagneticFields.jl/dev/) package provides models for magnetic fields of planets throughout the solar system. Here we visualize Jupiter's magnetic field using the JRM09 model:
+
+```{julia}
+using PlanetaryMagneticFields
+using GeoMakie
+
+model = JRM09() # Load Jupiter's JRM09 model
+
+plot_fieldmap(model;
+    r=1.0,
+    axis=(; title="Jupiter Radial Magnetic Field (JRM09)"),
+)
+```
+
+## Next Steps
+
+This tutorial covered the basics of loading and visualizing space physics data. To learn more:
+
+- **[Data Loading Tutorial](https://juliaspacephysics.github.io/tutorials/data_loading/)**: Comprehensive guide to data sources
+- **[Ecosystem](https://juliaspacephysics.github.io/ecosystem/)**: Browse all available packages
+
+## Environment Info
+
+```{julia}
+using Pkg
+Pkg.status()
+versioninfo()
+```
+
+
+## References
+
+- [Julia Language Colab Demo Notebook](https://colab.research.google.com/github/coatless-r-n-d/colab-notes/blob/main/10a-julia-colab-demo.ipynb)

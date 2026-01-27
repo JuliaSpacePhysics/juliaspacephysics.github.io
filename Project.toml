@@ -1,12 +1,12 @@
 [deps]
+CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
+CDFDatasets = "075ae62b-f872-4368-b383-31e3aa6c3154"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
-SPEDAS = "3930f61c-4d81-4846-ab8f-357babe068a6"
+GeoMakie = "db073c08-6b98-4ee5-b6a4-5efafb3259c6"
+PlanetaryMagneticFields = "548c34cc-0185-415b-8526-a0c739028078"
+SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
 SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
-Speasy = "09b745ad-c67d-442f-94a6-c7f4d1e4d861"
 TimeseriesUtilities = "31d49243-0742-49c1-b8d2-db113b74581e"
+TsyganenkoModels = "14dfbe45-703c-4bf3-b096-15691adbb981"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
-
-[compat]
-SPEDAS = "0.2"
-Speasy = "0.4.8"

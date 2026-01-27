@@ -22,6 +22,12 @@
   description: Coordinate transformations between common geocentric systems
   category: main
 
+- name: PlanetaryMagneticFields.jl
+  api: https://juliaspacephysics.github.io/PlanetaryMagneticFields.jl
+  github: https://github.com/JuliaSpacePhysics/PlanetaryMagneticFields.jl
+  description: A unified framework for planetary magnetic field modeling
+  category: main
+
 - name: TestParticle.jl
   api: "https://henry2004y.github.io/TestParticle.jl/"
   github: https://github.com/henry2004y/TestParticle.jl

@@ -3,6 +3,7 @@ _site/
 .CondaPkg
 Manifest.toml
 data
+pydata
 site_libs
 **/*.quarto_ipynb
 themis_data

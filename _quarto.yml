@@ -17,6 +17,9 @@ website:
       - icon: github
         text: GitHub
         href: https://github.com/JuliaSpacePhysics
+      - icon: journal-code
+        text: Colab
+        href: https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb
   back-to-top-navigation: true
   repo-url: https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/
   repo-actions: [edit, issue]
@@ -47,6 +50,6 @@ format:
 site-url: https://juliaspacephysics.github.io
 
 execute:
-  freeze: auto  # re-render only when source changes
+  freeze: auto # re-render only when source changes
 
-engines: ['julia']
+engines: ["julia"]

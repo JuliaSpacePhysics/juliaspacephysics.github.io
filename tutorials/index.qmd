@@ -4,9 +4,11 @@ title: "Tutorials"
 
 We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 
-You can begin with the Getting Started guide for [`SPEDAS.jl`](https://juliaspacephysics.github.io/SPEDAS.jl/dev/tutorials/getting-started/).
+## Getting Started
 
-Additional tutorials include:
+- **[Getting Started with JuliaSpacePhysics](demo.qmd)**: A quick tour of the ecosystem (also available as a [Colab notebook](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/demo.ipynb))
+
+## Additional Tutorials
 
 - [Loading data from a variety of sources](data_loading/)
 - [Speasy example: flexible layout and interactive tplot](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/)

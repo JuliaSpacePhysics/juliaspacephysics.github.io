@@ -23,7 +23,6 @@ JuliaSpacePhysics is a collection of Julia packages for space physics research, 
 #| code-summary: "Setup: install the required packages"
 #| output: false
 using Pkg
-Pkg.resolve()
 Pkg.add(["CDAWeb", "CairoMakie", "SpacePhysicsMakie"])
 ```
 
@@ -77,7 +76,7 @@ First, install the required packages:
 
 ```{julia}
 using Pkg
-Pkg.add(["PlanetaryMagneticFields", "TsyganenkoModels", "SpaceDataModel", "CDAWeb", "CairoMakie", "GeoMakie", "SpacePhysicsMakie"])
+Pkg.add(["PlanetaryMagneticFields", "TsyganenkoModels", "SpaceDataModel", "DimensionalData", "CDAWeb", "CairoMakie", "GeoMakie", "SpacePhysicsMakie"])
 ```
 
 ### Earth Magnetosphere: Tsyganenko Models

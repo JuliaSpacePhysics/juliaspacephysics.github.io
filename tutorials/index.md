@@ -6,7 +6,8 @@ We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 
 ## Getting Started
 
-- **[Getting Started with JuliaSpacePhysics](demo.qmd)**: A quick tour of the ecosystem (also available as a [Colab notebook](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/demo.ipynb))
+- **[Getting Started with JuliaSpacePhysics](demo.qmd)**: A quick tour of the ecosystem [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb)
+- **[Interactive Space Physics Visualization](demo_interactive.qmd)**: Explore space physics data using interactive WebGL-powered plots [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo_interactive.ipynb)
 
 ## Additional Tutorials
 

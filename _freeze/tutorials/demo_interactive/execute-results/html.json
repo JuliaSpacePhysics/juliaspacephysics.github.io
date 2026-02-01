@@ -1,0 +1,16 @@
+{
+  "hash": "6a9aaf74c2401471bda0cced3b643973",
+  "result": {
+    "engine": "julia",
+    "markdown": "---\ntitle: \"Interactive Space Physics Visualization\"\nsubtitle: \"Explore data with interactive plots\"\nformat:\n  html: default\n  ipynb: default\n---\n\nThis tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.\n\n<a href=\"https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo_interactive.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>\n\n::: {#2 .cell execution_count=1}\n``` {.julia .cell-code code-summary=\"Setup: install the required packages\"}\nusing Pkg\nPkg.add([\"CDAWeb\", \"WGLMakie\", \"SpacePhysicsMakie\"])\n```\n:::\n\n\n\n## Interactive Time Series Plot\n\nThis example loads OMNI solar wind data:\n\n::: {#4 .cell execution_count=1}\n``` {.julia .cell-code}\nusing CDAWeb\nusing WGLMakie, SpacePhysicsMakie\n\nt0 = \"2008-09-05T10:00:00\"\nt1 = \"2008-09-05T22:00:00\"\n# The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.\ntvars = cda\"OMNI_HRO_1MIN/flow_speed, Pressure\"\ntplot(tvars, t0, t1)\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```{=html}\n<div class=\"bonito-fragment\" id=\"c61ca453-aa0c-423a-9cf7-12a14b6e60a6\" data-jscall-id=\"root\"><div><script src=\"http://localhost:9384/assets/3a814c6351b0f55bddb5e43d1cc024da87c0867e-Bonito.bundled.js?b4727ff9068f2529964cc80da8155a625f39abb5\" type=\"module\"></script><style></style></div><div><script type=\"module\">Bonito.init_session(\"c61ca453-aa0c-423a-9cf7-12a14b6e60a6\", Bonito.fetch_binary('http://localhost:9384/assets/98386d8fb7a3e3ef5c180c6e4fdeac260ad8ecd8-1665987600518561958.bin'), \"root\", false);\n</script><div style=\"width: 100%; height: 100%; position: relative\" data-jscall-id=\"1\"><canvas data-jp-suppress-context-menu style=\"display: block\" data-jscall-id=\"2\" data-lm-suppress-shortcuts=\"true\" tabindex=\"0\"></canvas></div></div></div>\n```\n:::\n:::\n\n\n\nTry interacting with the plot:\n\n- **Scroll** to zoom in/out\n- **Click and drag** to pan\n- **ctrl+click** to reset the view\n\nSee [SpacePhysicsMakie.jl](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/) webpage for an example using [`Speasy.jl`](https://sciqlop.github.io/Speasy.jl/dev/).\n\n",
+    "supporting": [
+      "demo_interactive_files"
+    ],
+    "filters": [],
+    "includes": {
+      "include-in-header": [
+        "<script src=\"https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js\" integrity=\"sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx\" crossorigin=\"anonymous\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js\" integrity=\"sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2\" crossorigin=\"anonymous\" data-relocate-top=\"true\"></script>\n<script type=\"application/javascript\">define('jquery', [],function() {return window.jQuery;})</script>\n"
+      ]
+    }
+  }
+}

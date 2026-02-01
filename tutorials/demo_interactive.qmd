@@ -1,0 +1,41 @@
+---
+title: "Interactive Space Physics Visualization"
+subtitle: "Explore data with interactive plots"
+format:
+  html: default
+  ipynb: default
+---
+
+This tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.
+
+<a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.md" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+```{julia}
+#| code-summary: "Setup: install the required packages"
+#| output: false
+using Pkg
+Pkg.add(["CDAWeb", "WGLMakie", "SpacePhysicsMakie"])
+```
+
+## Interactive Time Series Plot
+
+This example loads OMNI solar wind data:
+
+```{julia}
+using CDAWeb
+using WGLMakie, SpacePhysicsMakie
+
+t0 = "2008-09-05T10:00:00"
+t1 = "2008-09-05T22:00:00"
+# The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.
+tvars = cda"OMNI_HRO_1MIN/flow_speed, Pressure"
+tplot(tvars, t0, t1)
+```
+
+Try interacting with the plot:
+
+- **Scroll** to zoom in/out
+- **Click and drag** to pan
+- **ctrl+click** to reset the view
+
+See [SpacePhysicsMakie.jl](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/) webpage for an example using [`Speasy.jl`](https://sciqlop.github.io/Speasy.jl/dev/).

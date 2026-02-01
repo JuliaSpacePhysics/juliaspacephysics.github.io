@@ -168,7 +168,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#interactive-time-series-plot" id="toc-interactive-time-series-plot" class="nav-link active" data-scroll-target="#interactive-time-series-plot">Interactive Time Series Plot</a></li>
-  <li><a href="#araseerg-quicklook" id="toc-araseerg-quicklook" class="nav-link" data-scroll-target="#araseerg-quicklook">Arase/ERG quicklook</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/demo_interactive.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="demo_interactive.ipynb" download="demo_interactive.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -196,7 +195,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.</p>
-<p><a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -230,10 +228,11 @@ Note
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> <span class="st">"2008-09-05T22:00:00"</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> cda<span class="st">"OMNI_HRO_1MIN/flow_speed, Pressure"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(tvars, t0, t1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> <span class="fu">tplot</span>(tvars, t0, t1)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>f</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<div class="bonito-fragment" id="66e4d3cc-0e83-428d-a762-13f1b16dbe3a" data-jscall-id="root"><div><script src="http://localhost:9384/assets/3a814c6351b0f55bddb5e43d1cc024da87c0867e-Bonito.bundled.js?b4727ff9068f2529964cc80da8155a625f39abb5" type="module"></script><style></style></div><div><script type="module">Bonito.init_session("66e4d3cc-0e83-428d-a762-13f1b16dbe3a", Bonito.fetch_binary('http://localhost:9384/assets/4f32a8be82ee72d788fec0df3ed479ef4801c9f3-388295238194386972.bin'), "root", false);
+<div class="bonito-fragment" id="ba49a109-8ecc-42dc-8f1e-194bbdcb0b64" data-jscall-id="root"><div><script src="http://localhost:9384/assets/3a814c6351b0f55bddb5e43d1cc024da87c0867e-Bonito.bundled.js?b4727ff9068f2529964cc80da8155a625f39abb5" type="module"></script><style></style></div><div><script type="module">Bonito.init_session("ba49a109-8ecc-42dc-8f1e-194bbdcb0b64", Bonito.fetch_binary('http://localhost:9384/assets/665f715a03769ea44618d6421be67efb6dbcbc17-12792832305732122364.bin'), "root", false);
 </script><div style="width: 100%; height: 100%; position: relative" data-jscall-id="1"><canvas data-jp-suppress-context-menu="" style="display: block" data-jscall-id="2" data-lm-suppress-shortcuts="true" tabindex="0"></canvas></div></div></div>
 </div>
 </div>
@@ -256,9 +255,6 @@ Note
 <p>See <a href="https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/">SpacePhysicsMakie.jl</a> webpage for an example using <a href="https://sciqlop.github.io/Speasy.jl/dev/"><code>Speasy.jl</code></a>.</p>
 </div>
 </div>
-</section>
-<section id="araseerg-quicklook" class="level2">
-<h2 class="anchored" data-anchor-id="araseerg-quicklook">Arase/ERG quicklook</h2>
 
 
 <!-- -->
@@ -727,45 +723,42 @@ Note
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>This tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">"https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.ipynb"</span><span class="ot"> target</span><span class="op">=</span><span class="st">"_parent"</span><span class="dt">&gt;&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://colab.research.google.com/assets/colab-badge.svg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Open In Colab"</span><span class="dt">/&gt;&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>We use BonitoBook in Colab, which is a Julia native notebook with many additional features compared to Colab (we mainly use Colab as a computation platform). Using WGLMakie directly in Colab is currently not possible due to <span class="co">[</span><span class="ot">this limitation</span><span class="co">](https://github.com/googlecolab/colabtools/issues/5369)</span>.</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Setup: install the required packages"</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>([<span class="st">"CDAWeb"</span>, <span class="st">"WGLMakie"</span>, <span class="st">"SpacePhysicsMakie"</span>])</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>We use BonitoBook in Colab, which is a Julia native notebook with many additional features compared to Colab (we mainly use Colab as a computation platform). Using WGLMakie directly in Colab is currently not possible due to <span class="co">[</span><span class="ot">this limitation</span><span class="co">](https://github.com/googlecolab/colabtools/issues/5369)</span>.</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Setup: install the required packages"</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>([<span class="st">"CDAWeb"</span>, <span class="st">"WGLMakie"</span>, <span class="st">"SpacePhysicsMakie"</span>])</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interactive Time Series Plot</span></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interactive Time Series Plot</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>This example loads OMNI solar wind data:</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>This example loads OMNI solar wind data:</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CDAWeb</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">WGLMakie</span>, <span class="bu">SpacePhysicsMakie</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="st">"2008-09-05T10:00:00"</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> <span class="st">"2008-09-05T22:00:00"</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co"># The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> cda<span class="st">"OMNI_HRO_1MIN/flow_speed, Pressure"</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="fu">tplot</span>(tvars, t0, t1)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>Try interacting with the plot:</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scroll** to zoom in/out</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Click and drag** to pan</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ctrl+click** to reset the view</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">SpacePhysicsMakie.jl</span><span class="co">](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/)</span> webpage for an example using <span class="co">[</span><span class="ot">`Speasy.jl`</span><span class="co">](https://sciqlop.github.io/Speasy.jl/dev/)</span>.</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Arase/ERG quicklook</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CDAWeb</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">WGLMakie</span>, <span class="bu">SpacePhysicsMakie</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="st">"2008-09-05T10:00:00"</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> <span class="st">"2008-09-05T22:00:00"</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>tvars <span class="op">=</span> cda<span class="st">"OMNI_HRO_1MIN/flow_speed, Pressure"</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>f, axs <span class="op">=</span> <span class="fu">tplot</span>(tvars, t0, t1)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>f</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>Try interacting with the plot:</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scroll** to zoom in/out</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Click and drag** to pan</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ctrl+click** to reset the view</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">SpacePhysicsMakie.jl</span><span class="co">](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/)</span> webpage for an example using <span class="co">[</span><span class="ot">`Speasy.jl`</span><span class="co">](https://sciqlop.github.io/Speasy.jl/dev/)</span>.</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

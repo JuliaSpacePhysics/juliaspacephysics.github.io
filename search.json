@@ -214,14 +214,7 @@
     "href": "tutorials/demo_interactive.html#interactive-time-series-plot",
     "title": "Interactive Space Physics Visualization",
     "section": "Interactive Time Series Plot",
-    "text": "Interactive Time Series Plot\nThis example loads OMNI solar wind data:\n\n\nCode\nusing CDAWeb\nusing WGLMakie, SpacePhysicsMakie\n\nt0 = \"2008-09-05T10:00:00\"\nt1 = \"2008-09-05T22:00:00\"\n# The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.\ntvars = cda\"OMNI_HRO_1MIN/flow_speed, Pressure\"\ntplot(tvars, t0, t1)\n\n\n\n\n\nTry interacting with the plot:\n\nScroll to zoom in/out\nClick and drag to pan\nctrl+click to reset the view\n\n\n\n\n\n\n\nNote\n\n\n\nSee SpacePhysicsMakie.jl webpage for an example using Speasy.jl."
-  },
-  {
-    "objectID": "tutorials/demo_interactive.html#araseerg-quicklook",
-    "href": "tutorials/demo_interactive.html#araseerg-quicklook",
-    "title": "Interactive Space Physics Visualization",
-    "section": "Arase/ERG quicklook",
-    "text": "Arase/ERG quicklook"
+    "text": "Interactive Time Series Plot\nThis example loads OMNI solar wind data:\n\n\nCode\nusing CDAWeb\nusing WGLMakie, SpacePhysicsMakie\n\nt0 = \"2008-09-05T10:00:00\"\nt1 = \"2008-09-05T22:00:00\"\n# The `cda` string macro provides a convenient way to fetch multiple variables from CDAWeb in a single line.\ntvars = cda\"OMNI_HRO_1MIN/flow_speed, Pressure\"\nf, axs = tplot(tvars, t0, t1)\nf\n\n\n\n\n\nTry interacting with the plot:\n\nScroll to zoom in/out\nClick and drag to pan\nctrl+click to reset the view\n\n\n\n\n\n\n\nNote\n\n\n\nSee SpacePhysicsMakie.jl webpage for an example using Speasy.jl."
   },
   {
     "objectID": "tutorials/index.html",
@@ -231,18 +224,11 @@
     "text": "We are gradually developing tutorials for the JuliaSpacePhysics ecosystem."
   },
   {
-    "objectID": "tutorials/index.html#getting-started",
-    "href": "tutorials/index.html#getting-started",
-    "title": "Tutorials",
-    "section": "Getting Started",
-    "text": "Getting Started\n\nGetting Started with JuliaSpacePhysics: A quick tour of the ecosystem \nInteractive Space Physics Visualization: Explore space physics data using interactive WebGL-powered plots"
-  },
-  {
     "objectID": "tutorials/index.html#additional-tutorials",
     "href": "tutorials/index.html#additional-tutorials",
     "title": "Tutorials",
     "section": "Additional Tutorials",
-    "text": "Additional Tutorials\n\nLoading data from a variety of sources\nSpeasy example: flexible layout and interactive tplot\nMMS observations of electron-scale measurements of magnetic reconnection\nCDF reader benchmarks\nSOHO Velocity Dispersion Analysis (VDA) analysis"
+    "text": "Additional Tutorials\n\nLoading data from a variety of sources\nSpeasy example: flexible layout and interactive tplot\nMMS observations of electron-scale measurements of magnetic reconnection\nCDF reader benchmarks\nSOHO Velocity Dispersion Analysis (VDA) analysis\nInteractive Space Physics Visualization on Google Colab:"
   },
   {
     "objectID": "tutorials/index.html#examples-in-the-wild",

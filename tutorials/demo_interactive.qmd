@@ -8,7 +8,7 @@ format:
 
 This tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.
 
-<a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.md" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ```{julia}
 #| code-summary: "Setup: install the required packages"

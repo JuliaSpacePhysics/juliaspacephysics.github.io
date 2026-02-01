@@ -4,10 +4,7 @@ title: "Tutorials"
 
 We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 
-## Getting Started
-
-- **[Getting Started with JuliaSpacePhysics](demo.qmd)**: A quick tour of the ecosystem [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb)
-- **[Interactive Space Physics Visualization](demo_interactive.qmd)**: Explore space physics data using interactive WebGL-powered plots [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo_interactive.ipynb)
+- [Getting Started with JuliaSpacePhysics](demo.qmd): A quick tour of the ecosystem [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb)
 
 ## Additional Tutorials
 
@@ -16,6 +13,9 @@ We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 - [MMS observations of electron-scale measurements of magnetic reconnection](mms_e_mr/)
 - [CDF reader benchmarks](cdf/)
 - [SOHO Velocity Dispersion Analysis (VDA) analysis](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)
+
+- [Interactive Space Physics Visualization on Google Colab](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.ipynb): [![](https://colab.research.google.com/assets/colab-badge.svg)]()
+
 
 ## Examples in the wild
 

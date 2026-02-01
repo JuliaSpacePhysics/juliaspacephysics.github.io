@@ -1,5 +1,4 @@
 [deps]
-BonitoBook = "b416d416-7a6e-4336-8c1a-1f8a8cd59518"
 CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
 CDFDatasets = "075ae62b-f872-4368-b383-31e3aa6c3154"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"

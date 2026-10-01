@@ -1,0 +1,89 @@
+name: Propagate navbar
+
+# Re-inserts ecosystem/Navbar.html into every Documenter site in the org.
+# New doc deploys get the navbar from JuliaSpacePhysics/actions/DocsDocumenter; this covers already-deployed pages.
+# Auth: GitHub App installed on the org with Contents read/write;
+# repo variable NAVBAR_APP_CLIENT_ID, repo secret NAVBAR_APP_PRIVATE_KEY.
+on:
+  push:
+    branches: [main]
+    paths: [ecosystem/Navbar.html]
+  workflow_dispatch:
+    inputs:
+      repos:
+        description: 'Space-separated repo names; empty = every installed repo whose gh-pages has versions.js'
+        default: ''
+
+permissions: {}
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.list.outputs.repos }}
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app
+        with:
+          client-id: ${{ vars.NAVBAR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.NAVBAR_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-contents: read
+      - id: list
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          OWNER: ${{ github.repository_owner }}
+          REPOS: ${{ inputs.repos }}
+        run: |
+          if [[ -z "$REPOS" ]]; then
+            REPOS=$(gh api /installation/repositories --paginate --jq '.repositories[] | select(.archived | not) | .name')
+          fi
+          # versions.js marks a Documenter deployment; skips Quarto and other Pages sites.
+          for r in $REPOS; do
+            gh api "repos/$OWNER/$r/contents/versions.js?ref=gh-pages" --silent 2>/dev/null && echo "$r"
+          done | jq -Rsc 'split("\n") | map(select(. != ""))' | sed 's/^/repos=/' >> "$GITHUB_OUTPUT"
+
+  update:
+    needs: list
+    if: needs.list.outputs.repos != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: ${{ fromJSON(needs.list.outputs.repos) }}
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app
+        with:
+          client-id: ${{ vars.NAVBAR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.NAVBAR_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ matrix.repo }}
+          permission-contents: write
+      # Local copy, not raw.githubusercontent.com, which can serve the pre-push file for minutes.
+      - uses: actions/checkout@v7
+        with:
+          path: site
+          sparse-checkout: ecosystem/Navbar.html
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
+          ref: gh-pages
+          path: docs
+          token: ${{ steps.app.outputs.token }}
+      - uses: TuringLang/actions/DocsNav@v5
+        with:
+          doc-path: docs
+          navbar-url: ${{ github.workspace }}/site/ecosystem/Navbar.html
+      - name: Commit and push
+        working-directory: docs
+        run: |
+          [[ -z $(git status -s) ]] && { echo "No changes"; exit 0; }
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "Update navbar (automated)"
+          # A concurrent Documenter deploy or preview cleanup may have moved gh-pages; rerun the job if this fails.
+          git push

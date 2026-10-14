@@ -5,17 +5,6 @@ title: Load and visualize data from a variety of sources
 We demonstrate here how to load data from a variety of data sources and visualize them using [`SpacePhysicsMakie.jl`](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/).
 
 ```{julia}
-#| code-summary: Setup
-#| output: false
-dir = "tutorials/data_loading"
-if isdir(dir)
-    cd(dir)
-end
-
-Pkg.activate(".")
-Pkg.resolve()
-Pkg.instantiate()
-
 using CairoMakie, SpacePhysicsMakie
 ```
 
@@ -26,11 +15,11 @@ using CairoMakie, SpacePhysicsMakie
 It could be installed at REPL via `using Pkg; Pkg.add("CDAWeb")`.
 
 ```{julia}
-import CDAWeb
+using CDAWeb
 t0 = "2024-01-02"
 t1 = "2024-01-03"
-# Fetch ACE magnetic field data
-data1 = CDAWeb.get_data("AC_H0_SWE", "V_GSE", t0, t1)
+# ACE solar wind velocity
+data1 = cda"AC_H0_SWE/V_GSE"(t0, t1)
 ```
 
 ### Plot the data
@@ -48,7 +37,7 @@ It could be installed at REPL via `using Pkg; Pkg.add("Speasy")`.
 ```{julia}
 import Speasy
 
-data2 = Speasy.get_data("cda/OMNI_HRO_1MIN/Pressure", t0, t1; sanitize=true)
+data2 = Speasy.get_data("cda/OMNI_HRO_1MIN/Pressure", t0, t1)
 ```
 
 ### Plot the data

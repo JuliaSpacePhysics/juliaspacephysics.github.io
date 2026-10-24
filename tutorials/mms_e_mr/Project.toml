@@ -8,9 +8,6 @@ SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
 SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
-[sources]
-SPEDAS = {path = "/Users/zijin/src/JuliaSpacePhysics/SPEDAS.jl"}
-
 [compat]
 CDAWeb = "0.3"
 CairoMakie = "0.15"

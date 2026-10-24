@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    env:
+      JULIA_CPU_TARGET: haswell
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -24,6 +26,8 @@ jobs:
       - uses: julia-actions/cache@v2
       # Tutorials with their own Project.toml run in that env; Manifests are gitignored.
       - name: Instantiate Julia environments
+        env:
+          JULIA_PKG_PRECOMPILE_AUTO: 0
         run: |
           julia --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.resolve()'
           for p in tutorials/*/Project.toml; do julia --project="$(dirname "$p")" -e 'using Pkg; Pkg.instantiate()'; done

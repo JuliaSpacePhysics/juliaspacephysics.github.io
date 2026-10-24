@@ -4,159 +4,88 @@ subtitle: Electron-scale measurements of magnetic reconnection in space
 engine: julia
 ---
 
-> Obtain and analyze plasma data, including spectra, for the first MMS Science event (Burch et al., Science 2016, link here) showing magnetopause reconnection at the electron diffusion region on 2016/10/16 13:07:02.2 UT. Start by using Hwk06_mpause_RX.pro, provided.  The objective of this exercise is to introduce plasma distributions from MMS (electrons and ions) and create burst spectra. In the process also create plasma moments and the plasma current and plot these along E and B. You are requested to create Figure 2 of Burch et al. plus the 3 bottom (electron) spectrograms from Figure 3 of the same paper (panels 3G, 3H and 3I). Your figure should look like the one shown on the next page, but using burst mode data in order to make it look like in Burch et al. You are requested to plot this figure at 2 time scales: the overview (2 min) timescale as in Fig. 2 of Burch et al. [‘13:05:30’,’13:07:30’] and  the zoom-in (3 sec) timescale as in Fig. 3 of Burch et al. ['13:07:00.5','13:07:03.5']. Notice that the clean and fast m’pause crossing was at 13:05:40UT, and this is used to determine N. In Fig. 2K of Burch et al. (the right-hand side of Fig. 2, the pictorial view of the MMS trajectory for the 2min interval) this initial m’pause crossing was near the start of the trajectory. The trajectory crosses the X-point at the 3 seconds of the zoom-in interval.
+On 2015-10-16 around 13:07:02 UT, MMS2 crossed an electron diffusion region (EDR) of magnetopause reconnection, the first such crossing reported by [Burch et al. (2016)](https://doi.org/10.1126/science.aaf2939). This tutorial rebuilds the core of their Figure 2 from burst-mode CDAWeb data: fields and moments in boundary-normal (LMN) coordinates, energy spectrograms, and the current density from the plasma moments, then zooms in on the EDR with the electron energy spectrograms parallel, perpendicular and antiparallel to B of their Figure 3.
+
+Data are read into `DataVariable`s, which keep the CDF coordinates, such as the time-varying energy bins of FPI spectra.
 
 ```{julia}
-using Speasy
-using DimensionalData
-using SPEDAS
-using SPEDAS.MMS
+using CDAWeb, SPEDAS
+using SpaceDataModel: DataVariable
+using Dates, LinearAlgebra, Unitful
 using CairoMakie, SpacePhysicsMakie
-using Unitful
-using Dates
 
-update_theme!(colormap=:rainbow1)
-SpacePhysicsMakie.DEFAULTS.add_title = true;
+t0, t1 = DateTime("2015-10-16T13:05:30"), DateTime("2015-10-16T13:07:30")
+
+B = DataVariable(cda"MMS2_FGM_BRST_L2/mms2_fgm_b_gse_brst_l2"(t0, t1))[1:3, :]  # drop |B|
+E = DataVariable(cda"MMS2_EDP_BRST_L2_DCE/mms2_edp_dce_gse_brst_l2"(t0, t1))
+Ni, Vi, Si = DataVariable.(getdata.(cda"MMS2_FPI_BRST_L2_DIS-MOMS/mms2_dis_numberdensity_brst,mms2_dis_bulkv_gse_brst,mms2_dis_energyspectr_omni_brst", t0, t1))
+Ne, Ve, Se = DataVariable.(getdata.(cda"MMS2_FPI_BRST_L2_DES-MOMS/mms2_des_numberdensity_brst,mms2_des_bulkv_gse_brst,mms2_des_energyspectr_omni_brst", t0, t1))
 ```
 
-## Overview plot
+## Boundary-normal coordinates
 
-### Minimum Variance Analysis
+Minimum variance analysis of the magnetic field across the clean magnetopause crossing at 13:05:40 gives the LMN frame: L along the reconnecting field, N normal to the boundary.
 
 ```{julia}
-trange = DateTime.(("2015-10-16T13:05:35", "2015-10-16T13:07:25"))
-tr_mpause = DateTime.(("2015-10-16T13:05:40", "2015-10-16T13:06:09"))
-
-probe = 2
-
-tvars = (
-    "cda/MMS2_FGM_SRVY_L2/mms2_fgm_b_gse_srvy_l2_clean",
-    "cda/MMS2_EDP_FAST_L2_DCE/mms2_edp_dce_gse_fast_l2",
-)
-B_gse, edp_dce_gse = get_data(tvars, trange) .|> DimArray
-rotMat = mva_eigen(tview(B_gse[:, 1:3], tr_mpause))
-B_LMN = rotate(B_gse[:, 1:3], rotMat) |> set_coord("LMN") |> set_coord("Boundary-normal coordinates"; old_coords=["Geocentric Solar Ecliptic"])
-E_LMN = rotate(edp_dce_gse, rotMat) |> set_coord("LMN")
-
-rotMat
+F = mva_eigen(tview(B, DateTime("2015-10-16T13:05:40"), DateTime("2015-10-16T13:06:09")))
+F.vectors  # columns: L, M, N in GSE
 ```
 
-The direction obtained from the Minimum Variance Analysis (MVA) in our study closely aligns with the direction reported in the literature.
+These match the axes of Burch et al.: L = (0.3665, −0.1201, 0.9226), M = (0.5694, −0.7553, −0.3245), N = (0.7358, 0.6443, −0.2084) GSE.
 
-> The (x, y, z) GSE components of the L, M, and N axes are L = (0.3665, –0.1201, 0.9226) GSE, M = (0.5694, –0.7553, –0.3245) GSE, and N = (0.7358, 0.6443, –0.2084) GSE
-
-### Plasma data
+`mva(x, F)` rotates any vector series into this frame; `setcoord` updates its coordinate metadata.
 
 ```{julia}
-data_rate = "brst"
-fpi_des_ds = FPIDataSet(; probe, data_rate, data_type="des")
-fpi_dis_ds = FPIDataSet(; probe, data_rate, data_type="dis")
+lmn(x, sym) = setmeta(setcoord(mva(x, F), "LMN"), "LABLAXIS" => sym, "LABL_PTR_1" => ["$(sym)_$c" for c in "LMN"])
 
-func = x -> begin
-    out = unit(x) * DimArray(x)
-    out.metadata["DEPEND_1"] = x.dims[2] # a temporary fix for `SpacePhysicsMakie`
-    out
-end
-des_data = map(func, get_data(NamedTuple, fpi_des_ds, trange))
-dis_data = map(func, get_data(NamedTuple, fpi_dis_ds, trange))
-
-des_n = setmeta(des_data.numberdensity[:, 1], labels="Ne")
-dis_bulkv_lmn = rotate(dis_data.bulkv_gse, rotMat) |> set_coord("LMN")
-des_bulkv_lmn = rotate(des_data.bulkv_gse, rotMat) |> set_coord("LMN")
-dis_n = setmeta(dis_data.numberdensity[:, 1], labels="Ni")
+B_lmn = lmn(B, "B")
+Vi_lmn = lmn(Vi, "Vi")
+E_lmn = lmn(tresample(E, Millisecond(30)), "E")  # 8192 S/s is more than a 2-minute panel can show
 ```
 
-### Magnitudes of electron and ion convection velocities
+## Current density
+
+The current carried by the plasma is $\mathbf{J} = e\,n\,(\mathbf{V}_i - \mathbf{V}_e)$, evaluated at the electron cadence (30 ms) with the ion velocity (150 ms) interpolated onto it.
 
 ```{julia}
-Vi_perp_mag, Ve_perp_mag = let Vi = dis_data.bulkv_gse, Ve = des_data.bulkv_gse, B = B_gse
-    tr = timerange(B)
-    Vi_clip = tview(Vi, tr)
-    Ve_clip = tview(Ve, tr)
-
-    B_int_Vi = tinterp(B, Vi_clip)[:, 1:3]
-    B_int_Ve = tinterp(B, Ve_clip)[:, 1:3]
-    Vi_perp_mag = toproj(Vi_clip, B_int_Vi) |> tnorm
-    Ve_perp_mag = toproj(Ve_clip, B_int_Ve) |> tnorm
-
-    setmeta(Vi_perp_mag, labels="Viper_t"), setmeta(Ve_perp_mag, labels="Veper_t")
-end
+Ve_s, Vi_s, Ne_s = tsync(Ve, Vi, Ne)
+J = uconvert.(u"μA/m^2", Unitful.q .* parent(Ne_s)' .* (Vi_s .- Ve_s) .* u"cm^-3 * km/s")
+J_lmn = lmn(J, "J")
 ```
 
+## Convection speeds
 
-### Current density
+The perpendicular (convection) speed is $|\mathbf{V} \times \mathbf{B}| / |\mathbf{B}|$, with B interpolated onto the velocity samples. Electrons and ions convect together where the plasma is frozen-in; their speeds separate where the ions decouple from the field.
 
 ```{julia}
-J = begin
-    Vi = dis_bulkv_lmn
-    Ve = des_bulkv_lmn
-    n = dis_n
-    Ve_clip = tclip(Ve, timerange(Vi))
-    Vi_interp = tinterp(Vi, Ve_clip)
-    n_interp = tinterp(n, Ve_clip)
-    J = mapslices(Vi_interp - Ve_clip; dims=Ti) do V_diff_i
-        @. Unitful.q * V_diff_i * n_interp |> u"μA*m^-2"
-    end
-    setmeta(J, labels=["j_L", "j_M", "j_N"])
-end
+vperp(V, sym) = setmeta(mapsamples((v, b) -> norm(v × b) / norm(b), tsync(V, B)...), "LABLAXIS" => sym)
+Vperp = [vperp(Vi, "|Vi⊥|"), vperp(Ve, "|Ve⊥|")]
 ```
 
-### Para, perp and anti-parallel spectra of electrons
+## Overview
 
 ```{julia}
-des_energyspectr_tvars = [
-    "cda/MMS2_FPI_BRST_L2_DES-MOMS/mms$(probe)_des_energyspectr_par_$(data_rate)",
-    "cda/MMS2_FPI_BRST_L2_DES-MOMS/mms$(probe)_des_energyspectr_perp_$(data_rate)",
-    "cda/MMS2_FPI_BRST_L2_DES-MOMS/mms$(probe)_des_energyspectr_anti_$(data_rate)"
-]
-
-des_energyspectr = get_data(des_energyspectr_tvars, trange) .|> func
-replace!.(des_energyspectr, 0 => NaN)
-des_energyspectr_ratio = des_energyspectr[1] ./ des_energyspectr[2]
-des_energyspectr = setmeta.(des_energyspectr, colorrange=(1e5, 1e9))
-des_energyspectr_ratio = setmeta(des_energyspectr_ratio,
-    colorrange=(1e-1, 1e1), title="Ratio (Para/Perp)"
-)
+#| fig-height: 14
+density = [setmeta(Ni, "LABLAXIS" => "Ni"), setmeta(Ne, "LABLAXIS" => "Ne")]
+f = tplot((B_lmn, density, Si, Se, Vi_lmn, Vperp, J_lmn, E_lmn))
+tlines!(f, DateTime("2015-10-16T13:07:02.2"))
+f
 ```
 
-### Summary data plot
+From top: B_L reverses across the magnetopause at 13:05:40 and again near the EDR; magnetosheath ions (~1 keV) and electrons (~100 eV) replace the hot, tenuous magnetospheric plasma; the ion jet in −L marks the reconnection exhaust; electrons convect far faster than ions (|Ve⊥| ≫ |Vi⊥|) as the spacecraft approaches the EDR; J_M peaks at the EDR (vertical line), where E also spikes.
 
-> In 1 paragraph (10 lines) explain what each panel represents for this reconnection interval.
+## Electron diffusion region
 
-From top to bottom, the panels represent the following: 
-1. the magnetic field vectors in LMN coordinate system;
-2. energy times spectrogram of ion energy flux;
-3. energy times spectrogram of electron energy flux;
-4. plasma density (ion and electron);
-5. ion flow velocity vectors in LMN coordinate system;
-6. magnitudes of electron and ion convection velocities;
-7. current density;
-8. electron parallel and perpendicular temperatures;
-9. electric field vectors in LMN coordinate system;
-10-12. electron spectrograms (parallel, perpendicular, anti-parallel);
-13. electron spectrogram ratio (para/perp).
-
+Over three seconds around the EDR, B_L reverses sign, J_M and E peak, and the electron spectra parallel, perpendicular and antiparallel to B change abruptly at 13:07:02.2.
 
 ```{julia}
-tvars2plot = (
-    B_LMN,
-    [dis_n, des_n],
-    setmeta(dis_data.energyspectr_omni, colorrange=(1e3, 1e9)),
-    setmeta(des_data.energyspectr_omni, colorrange=(1e3, 1e9)),
-    dis_bulkv_lmn,
-    [Vi_perp_mag, Ve_perp_mag],
-    E_LMN,
-    des_energyspectr...,
-    des_energyspectr_ratio
-)
-faxes = tplot(tvars2plot)
-tlines!(faxes, "2015-10-16T13:05:52")
-tlines!(faxes, ["2015-10-16T13:05:44", "2015-10-16T13:06:00"])
-tlines!(faxes, ["2015-10-16T13:06:46", "2015-10-16T13:07:12"])
-ylims!.(faxes.axes[end-3:end], 0.9e1, 1.2e3)
-faxes
+#| fig-height: 10
+tz0, tz1 = DateTime("2015-10-16T13:07:00.5"), DateTime("2015-10-16T13:07:03.5")
+spectra = DataVariable.(getdata.(cda"MMS2_FPI_BRST_L2_DES-MOMS/mms2_des_energyspectr_par_brst,mms2_des_energyspectr_perp_brst,mms2_des_energyspectr_anti_brst", tz0, tz1))
+f = tplot((tview(B_lmn, tz0, tz1), tview(J_lmn, tz0, tz1), lmn(tview(E, tz0, tz1), "E"), spectra...))
+tlines!(f, DateTime("2015-10-16T13:07:02.2"))
+f
 ```
-
 
 ## Reproducibility
 

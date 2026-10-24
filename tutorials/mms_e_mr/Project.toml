@@ -1,0 +1,20 @@
+[deps]
+CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+SPEDAS = "3930f61c-4d81-4846-ab8f-357babe068a6"
+SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
+SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[sources]
+SPEDAS = {path = "/Users/zijin/src/JuliaSpacePhysics/SPEDAS.jl"}
+
+[compat]
+CDAWeb = "0.3"
+CairoMakie = "0.15"
+SPEDAS = "0.4"
+SpaceDataModel = "0.7"
+SpacePhysicsMakie = "0.4.2"
+Unitful = "1"

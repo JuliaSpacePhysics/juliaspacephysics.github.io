@@ -14,7 +14,7 @@ We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 - [CDF reader benchmarks](cdf/)
 - [SOHO Velocity Dispersion Analysis (VDA) analysis](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)
 
-- [Interactive Space Physics Visualization on Google Colab](https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/main/tutorials/_BonitoBook.ipynb): [![](https://colab.research.google.com/assets/colab-badge.svg)]()
+- [Interactive Space Physics Visualization](demo_interactive.qmd): pan and zoom WGLMakie plots in [GitHub Codespaces](https://codespaces.new/JuliaSpacePhysics/juliaspacephysics.github.io?quickstart=1)
 
 
 ## Examples in the wild

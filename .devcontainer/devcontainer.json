@@ -1,0 +1,22 @@
+{
+  "name": "JuliaSpacePhysics tutorials",
+  // Built by .github/workflows/devcontainer.yml with packages precompiled.
+  "image": "ghcr.io/juliaspacephysics/tutorials-devcontainer:latest",
+  "customizations": {
+    "vscode": {
+      "extensions": ["julialang.language-julia", "quarto.quarto"],
+      "settings": {
+        "julia.environmentPath": "/opt/tutorials",
+        // Keep the 2 cores for the REPL: don't resolve the site's other envs or load packages to index them.
+        "julia.enableWorkspaceEnvironmentResolution": false,
+        "julia.enableDynamicIndexing": false,
+        "julia.symbolCacheDownload": true,
+        // Show figures in a top-level browser tab (opened via xdg-open -> Codespaces' $BROWSER), where Bonito's websocket is same-origin.
+        "julia.usePlotPane": false
+      }
+    },
+    "codespaces": {
+      "openFiles": ["tutorials/demo_interactive.qmd"]
+    }
+  }
+}

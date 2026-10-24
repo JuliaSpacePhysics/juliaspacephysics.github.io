@@ -1,0 +1,4 @@
+[deps]
+CDAWeb = "950ff2a9-823f-469c-91a7-754a5d85edca"
+SpacePhysicsMakie = "0c28ffd8-ae30-4a56-b2e4-f8332c621ad2"
+WGLMakie = "276b4fcb-3e11-5398-bf8b-a0c2d153d008"

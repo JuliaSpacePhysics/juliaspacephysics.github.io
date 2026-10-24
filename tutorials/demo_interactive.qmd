@@ -1,27 +1,26 @@
 ---
 title: "Interactive Space Physics Visualization"
 subtitle: "Explore data with interactive plots"
-format:
-  html: default
-  ipynb: default
 ---
 
 This tutorial demonstrates interactive visualization of space physics data using WebGL-powered plots. Unlike static plots, these visualizations allow you to pan, zoom, and explore your data directly.
 
 ::: {.callout-note}
-We use BonitoBook in Colab, which is a Julia native notebook with many additional features compared to Colab (we mainly use Colab as a computation platform). Using WGLMakie directly in Colab is currently not possible due to [this limitation](https://github.com/googlecolab/colabtools/issues/5369).
+Panning and zooming need a running Julia session, so the plot on this page is a static image. To interact, [open this tutorial in GitHub Codespaces](https://codespaces.new/JuliaSpacePhysics/juliaspacephysics.github.io?quickstart=1): run the cell with the Quarto extension (*Run Cell*) and the figure opens in a new browser tab. If the tab is blocked, open port 9384 from the *Ports* panel, append `/browser-display` to the URL, and display the figure again.
 :::
-
-```{julia}
-#| code-summary: "Setup: install the required packages"
-#| output: false
-using Pkg
-Pkg.add(["CDAWeb", "WGLMakie", "SpacePhysicsMakie"])
-```
 
 ## Interactive Time Series Plot
 
 This example loads OMNI solar wind data:
+
+```{julia}
+#| include: false
+# The site is static, where WGLMakie output cannot load; render an image there and keep WGLMakie in Codespaces.
+if get(ENV, "CODESPACES", "") != "true"
+    using WGLMakie, CairoMakie
+    CairoMakie.activate!()
+end
+```
 
 ```{julia}
 using CDAWeb
@@ -35,7 +34,7 @@ f, axs = tplot(tvars, t0, t1)
 f
 ```
 
-Try interacting with the plot:
+In the codespace, try interacting with the plot:
 
 - **Scroll** to zoom in/out
 - **Click and drag** to pan

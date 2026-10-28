@@ -32,6 +32,7 @@ CotransTestCases().test_cotrans()
 pyspedas.projects.themis.state(["2010-02-25/00:00:00", "2010-02-25/23:59:59"], probe = "a", time_clip = true)
 tha_pos = set(DimArray(PySPEDAS.get_data("tha_pos")), Dim{:time} => Ti)
 tha_pos_gse = set(DimArray(PySPEDAS.get_data("tha_pos_gse")), Dim{:time} => Ti)
+pyimport("logging").getLogger().setLevel("WARNING")
 ```
 
 ## Agreement

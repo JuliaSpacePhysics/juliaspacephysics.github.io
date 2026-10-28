@@ -12,6 +12,7 @@ We are gradually developing tutorials for the JuliaSpacePhysics ecosystem.
 - [Speasy example: flexible layout and interactive tplot](https://juliaspacephysics.github.io/SpacePhysicsMakie.jl/dev/speasy/)
 - [MMS observations of electron-scale measurements of magnetic reconnection](mms_e_mr/)
 - [CDF reader benchmarks](cdf/)
+- [Coordinate transformations and field line tracing: GeoCotrans.jl vs IRBEM and PySPEDAS](coord_comparison/)
 - [SOHO Velocity Dispersion Analysis (VDA) analysis](https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/vda/)
 
 - [Interactive Space Physics Visualization](demo_interactive.qmd): pan and zoom WGLMakie plots in [GitHub Codespaces](https://codespaces.new/JuliaSpacePhysics/juliaspacephysics.github.io?quickstart=1)

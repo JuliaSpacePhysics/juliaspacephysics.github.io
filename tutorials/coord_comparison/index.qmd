@@ -1,0 +1,97 @@
+---
+title: Coordinate transformations and field line tracing
+subtitle: GeoCotrans.jl compared with IRBEM and PySPEDAS
+engine: julia
+---
+
+[GeoCotrans.jl](https://juliaspacephysics.github.io/GeoCotrans.jl/dev/) is a native Julia implementation of geocentric coordinate transformations and IGRF field line tracing.
+Here we check it against [IRBEM.jl](https://juliaspacephysics.github.io/IRBEM.jl/dev/) (Fortran) and [PySPEDAS](https://github.com/spedas/pyspedas) (Python), and benchmark the three.
+
+::: {.callout-note}
+## Takeaway
+GeoCotrans agrees closely with IRBEM and PySPEDAS and is an order of magnitude faster. It interpolates IGRF coefficients and the Sun's direction more finely, which accounts for the small differences.
+:::
+
+```{julia}
+#| output: false
+using GeoCotrans, IRBEM
+using PySPEDAS, PySPEDAS.PythonCall
+using DimensionalData, Dates, Chairmarks, Test
+using OrdinaryDiffEqTsit5
+
+irbem_cotrans(pos, in, out) = coord_trans(in, out, collect(dims(pos, Ti)), parent(pos)')'
+```
+
+THEMIS-A positions from the [PySPEDAS test cases](https://github.com/spedas/pyspedas/blob/master/pyspedas/cotrans_tools/tests/test_cotrans.py):
+
+```{julia}
+#| output: false
+@py import pyspedas.cotrans_tools.tests.test_cotrans: CotransTestCases
+CotransTestCases().test_cotrans()
+
+pyspedas.projects.themis.state(["2010-02-25/00:00:00", "2010-02-25/23:59:59"], probe = "a", time_clip = true)
+tha_pos = set(DimArray(PySPEDAS.get_data("tha_pos")), Dim{:time} => Ti)
+tha_pos_gse = set(DimArray(PySPEDAS.get_data("tha_pos_gse")), Dim{:time} => Ti)
+```
+
+## Agreement
+
+```{julia}
+jl = gei2geo(tha_pos)
+py = PySPEDAS.get_data("tha_pos_new_geo")
+@test jl ≈ parent(py)
+@test jl ≈ irbem_cotrans(tha_pos, "GEI", "GEO")
+```
+
+```{julia}
+jl = gei2gsm(tha_pos)
+pyspedas.cotrans("tha_pos", "tha_pos_new_gsm", coord_in = "GEI", coord_out = "GSM")
+@test jl ≈ parent(PySPEDAS.get_data("tha_pos_new_gsm")) rtol = 1e-5
+@test jl ≈ irbem_cotrans(tha_pos, "GEI", "GSM") rtol = 1e-3
+```
+
+```{julia}
+jl = gse2gsm(tha_pos_gse)
+pyspedas.cotrans("tha_pos_gse", "tha_pos_new_gsm", coord_in = "GSE", coord_out = "GSM")
+@test jl ≈ parent(PySPEDAS.get_data("tha_pos_new_gsm")) rtol = 1e-5
+@test jl ≈ irbem_cotrans(tha_pos_gse, "GSE", "GSM") rtol = 1e-3
+```
+
+## Benchmark
+
+GeoCotrans, IRBEM, PySPEDAS:
+
+```{julia}
+@b gei2geo($tha_pos), irbem_cotrans($tha_pos, "GEI", "GEO"), pyspedas.cotrans("tha_pos", "tha_pos_new_geo", coord_in = "GEI", coord_out = "GEO")
+```
+
+```{julia}
+@b gei2gsm($tha_pos), irbem_cotrans($tha_pos, "GEI", "GSM"), pyspedas.cotrans("tha_pos", "tha_pos_new_gsm", coord_in = "GEI", coord_out = "GSM")
+```
+
+```{julia}
+@b gse2gsm($tha_pos_gse), irbem_cotrans($tha_pos_gse, "GSE", "GSM"), pyspedas.cotrans("tha_pos_gse", "tha_pos_new_gsm", coord_in = "GSE", coord_out = "GSM")
+```
+
+## Field line tracing and magnetic equator
+
+`GeoCotrans.find_magequator` traces the field line through a point and locates the |B| minimum, like IRBEM's `find_magequator` with IGRF only (`kext = 0`).
+
+```{julia}
+t = DateTime(2020, 1, 1)
+pos = GEO(3.0, 0.5, 1.2)
+jl_eq = GeoCotrans.find_magequator(pos, t, Tsit5())
+ir_eq = IRBEM.find_magequator(t, pos; kext = 0)
+@test jl_eq.pos ≈ ir_eq.XGEO rtol = 1e-3
+@test jl_eq.Bmin ≈ ir_eq.Bmin rtol = 1e-3
+```
+
+```{julia}
+@b GeoCotrans.find_magequator($pos, $t, Tsit5()), IRBEM.find_magequator($t, $pos; kext = 0)
+```
+
+Tracing the whole field line:
+
+```{julia}
+@b trace($pos, $t, Tsit5()), IRBEM.trace_field_line($t, $pos; kext = 0)
+```

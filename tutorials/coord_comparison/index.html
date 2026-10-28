@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.5">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Coordinate transformations and field line tracing – JuliaSpacePhysics</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3b9ea68436acb9022c2fbce6dbb58b06.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4e97fa7440421e7e186b13c97095e61a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="application/ld+json">
+{
+  "@context" : "https://schema.org",
+  "@type" : "WebSite",
+  "name" : "JuliaSpacePhysics",
+  "alternateName": "Space Physics in Julia",
+  "url" : "https://juliaspacephysics.github.io/",
+}
+</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">JuliaSpacePhysics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../ecosystem/"> 
+<span class="menu-text">Ecosystem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/JuliaSpacePhysics" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://colab.research.google.com/github/JuliaSpacePhysics/juliaspacephysics.github.io/blob/gh-pages/tutorials/demo.ipynb" title="Colab" class="quarto-navigation-tool px-1" aria-label="Colab"><i class="bi bi-journal-code"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#agreement" id="toc-agreement" class="nav-link active" data-scroll-target="#agreement">Agreement</a></li>
+  <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark">Benchmark</a></li>
+  <li><a href="#field-line-tracing-and-magnetic-equator" id="toc-field-line-tracing-and-magnetic-equator" class="nav-link" data-scroll-target="#field-line-tracing-and-magnetic-equator">Field line tracing and magnetic equator</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/coord_comparison/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Coordinate transformations and field line tracing</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">GeoCotrans.jl compared with IRBEM and PySPEDAS</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://juliaspacephysics.github.io/GeoCotrans.jl/dev/">GeoCotrans.jl</a> is a native Julia implementation of geocentric coordinate transformations and IGRF field line tracing. Here we check it against <a href="https://juliaspacephysics.github.io/IRBEM.jl/dev/">IRBEM.jl</a> (Fortran) and <a href="https://github.com/spedas/pyspedas">PySPEDAS</a> (Python), and benchmark the three.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Takeaway
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>GeoCotrans agrees closely with IRBEM and PySPEDAS and is an order of magnitude faster. It interpolates IGRF coefficients and the Sun’s direction more finely, which accounts for the small differences.</p>
+</div>
+</div>
+<div id="2" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">GeoCotrans</span>, <span class="bu">IRBEM</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PySPEDAS</span>, <span class="bu">PySPEDAS.PythonCall</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DimensionalData</span>, <span class="bu">Dates</span>, <span class="bu">Chairmarks</span>, <span class="bu">Test</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEqTsit5</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">irbem_cotrans</span>(pos, <span class="kw">in</span>, out) <span class="op">=</span> <span class="fu">coord_trans</span>(<span class="kw">in</span>, out, <span class="fu">collect</span>(<span class="fu">dims</span>(pos, Ti)), <span class="fu">parent</span>(pos)<span class="ch">')'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>THEMIS-A positions from the <a href="https://github.com/spedas/pyspedas/blob/master/pyspedas/cotrans_tools/tests/test_cotrans.py">PySPEDAS test cases</a>:</p>
+<div id="4" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@py</span> <span class="im">import</span> <span class="bu">pyspedas.cotrans_tools.tests.test_cotrans</span>: CotransTestCases</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">CotransTestCases</span>().<span class="fu">test_cotrans</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pyspedas.projects.themis.<span class="fu">state</span>([<span class="st">"2010-02-25/00:00:00"</span>, <span class="st">"2010-02-25/23:59:59"</span>], probe <span class="op">=</span> <span class="st">"a"</span>, time_clip <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>tha_pos <span class="op">=</span> <span class="fu">set</span>(<span class="fu">DimArray</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos"</span>)), Dim{<span class="op">:</span>time} <span class="op">=&gt;</span> Ti)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tha_pos_gse <span class="op">=</span> <span class="fu">set</span>(<span class="fu">DimArray</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_gse"</span>)), Dim{<span class="op">:</span>time} <span class="op">=&gt;</span> Ti)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="agreement" class="level2">
+<h2 class="anchored" data-anchor-id="agreement">Agreement</h2>
+<div id="6" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gei2geo</span>(tha_pos)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>py <span class="op">=</span> PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_geo"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(py)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos, <span class="st">"GEI"</span>, <span class="st">"GEO"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-green-fg ansi-bold">Test Passed</span></pre>
+</div>
+</div>
+</div>
+<div id="8" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gei2gsm</span>(tha_pos)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_gsm"</span>)) rtol <span class="op">=</span> <span class="fl">1e-5</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos, <span class="st">"GEI"</span>, <span class="st">"GSM"</span>) rtol <span class="op">=</span> <span class="fl">1e-3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>28-Oct-26 12:47:11: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:11: Running transformation: subgei2gse
+28-Oct-26 12:47:11: Running transformation: subgse2gsm
+28-Oct-26 12:47:11: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:11: Output variable: tha_pos_new_gsm</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-green-fg ansi-bold">Test Passed</span></pre>
+</div>
+</div>
+</div>
+<div id="10" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gse2gsm</span>(tha_pos_gse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos_gse"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GSE"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_gsm"</span>)) rtol <span class="op">=</span> <span class="fl">1e-5</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos_gse, <span class="st">"GSE"</span>, <span class="st">"GSM"</span>) rtol <span class="op">=</span> <span class="fl">1e-3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>28-Oct-26 12:47:11: ['gse', 'gsm']
+28-Oct-26 12:47:11: Running transformation: subgse2gsm
+28-Oct-26 12:47:11: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:11: Output variable: tha_pos_new_gsm</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-green-fg ansi-bold">Test Passed</span></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="benchmark">Benchmark</h2>
+<p>GeoCotrans, IRBEM, PySPEDAS:</p>
+<div id="12" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gei2geo</span>(<span class="op">$</span>tha_pos), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos, <span class="st">"GEI"</span>, <span class="st">"GEO"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_geo"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GEO"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo
+28-Oct-26 12:47:12: ['gei', 'geo']
+28-Oct-26 12:47:12: Running transformation: subgei2geo
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_geo
+28-Oct-26 12:47:12: Output variable: tha_pos_new_geo</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(17.791 μs (7 allocs: 48.797 KiB), 972.208 μs (32 allocs: 132.875 KiB), 1.183 ms (16 allocs: 336 bytes))</code></pre>
+</div>
+</div>
+<div id="14" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gei2gsm</span>(<span class="op">$</span>tha_pos), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos, <span class="st">"GEI"</span>, <span class="st">"GSM"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:12: Running transformation: subgse2gsm
+28-Oct-26 12:47:12: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:12: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:12: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:12: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gei', 'gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgei2gse
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(117.583 μs (7 allocs: 48.797 KiB), 1.894 ms (32 allocs: 132.875 KiB), 3.478 ms (16 allocs: 336 bytes))</code></pre>
+</div>
+</div>
+<div id="16" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gse2gsm</span>(<span class="op">$</span>tha_pos_gse), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos_gse, <span class="st">"GSE"</span>, <span class="st">"GSM"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos_gse"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GSE"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm
+28-Oct-26 12:47:13: ['gse', 'gsm']
+28-Oct-26 12:47:13: Running transformation: subgse2gsm
+28-Oct-26 12:47:13: Setting coordinate system for tha_pos_new_gsm
+28-Oct-26 12:47:13: Output variable: tha_pos_new_gsm</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(105.125 μs (7 allocs: 48.797 KiB), 1.912 ms (32 allocs: 132.875 KiB), 2.422 ms (16 allocs: 336 bytes))</code></pre>
+</div>
+</div>
+</section>
+<section id="field-line-tracing-and-magnetic-equator" class="level2">
+<h2 class="anchored" data-anchor-id="field-line-tracing-and-magnetic-equator">Field line tracing and magnetic equator</h2>
+<p><code>GeoCotrans.find_magequator</code> traces the field line through a point and locates the |B| minimum, like IRBEM’s <code>find_magequator</code> with IGRF only (<code>kext = 0</code>).</p>
+<div id="18" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fu">DateTime</span>(<span class="fl">2020</span>, <span class="fl">1</span>, <span class="fl">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> <span class="fu">GEO</span>(<span class="fl">3.0</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>jl_eq <span class="op">=</span> GeoCotrans.<span class="fu">find_magequator</span>(pos, t, <span class="fu">Tsit5</span>())</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ir_eq <span class="op">=</span> IRBEM.<span class="fu">find_magequator</span>(t, pos; kext <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl_eq.pos <span class="op">≈</span> ir_eq.XGEO rtol <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl_eq.Bmin <span class="op">≈</span> ir_eq.Bmin rtol <span class="op">=</span> <span class="fl">1e-3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-green-fg ansi-bold">Test Passed</span></pre>
+</div>
+</div>
+</div>
+<div id="20" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> GeoCotrans.<span class="fu">find_magequator</span>(<span class="op">$</span>pos, <span class="op">$</span>t, <span class="fu">Tsit5</span>()), IRBEM.<span class="fu">find_magequator</span>(<span class="op">$</span>t, <span class="op">$</span>pos; kext <span class="op">=</span> <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(17.333 μs (72 allocs: 4.906 KiB), 90.250 μs (53 allocs: 2.203 KiB))</code></pre>
+</div>
+</div>
+<p>Tracing the whole field line:</p>
+<div id="22" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">trace</span>(<span class="op">$</span>pos, <span class="op">$</span>t, <span class="fu">Tsit5</span>()), IRBEM.<span class="fu">trace_field_line</span>(<span class="op">$</span>t, <span class="op">$</span>pos; kext <span class="op">=</span> <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(11.875 μs (68 allocs: 7.094 KiB), 1.180 ms (70 allocs: 117.625 KiB))</code></pre>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/juliaspacephysics\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Coordinate transformations and field line tracing</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> GeoCotrans.jl compared with IRBEM and PySPEDAS</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="an">engine:</span><span class="co"> julia</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">GeoCotrans.jl</span><span class="co">](https://juliaspacephysics.github.io/GeoCotrans.jl/dev/)</span> is a native Julia implementation of geocentric coordinate transformations and IGRF field line tracing.</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>Here we check it against <span class="co">[</span><span class="ot">IRBEM.jl</span><span class="co">](https://juliaspacephysics.github.io/IRBEM.jl/dev/)</span> (Fortran) and <span class="co">[</span><span class="ot">PySPEDAS</span><span class="co">](https://github.com/spedas/pyspedas)</span> (Python), and benchmark the three.</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Takeaway</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>GeoCotrans agrees closely with IRBEM and PySPEDAS and is an order of magnitude faster. It interpolates IGRF coefficients and the Sun's direction more finely, which accounts for the small differences.</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">GeoCotrans</span>, <span class="bu">IRBEM</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PySPEDAS</span>, <span class="bu">PySPEDAS.PythonCall</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DimensionalData</span>, <span class="bu">Dates</span>, <span class="bu">Chairmarks</span>, <span class="bu">Test</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEqTsit5</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="fu">irbem_cotrans</span>(pos, <span class="kw">in</span>, out) <span class="op">=</span> <span class="fu">coord_trans</span>(<span class="kw">in</span>, out, <span class="fu">collect</span>(<span class="fu">dims</span>(pos, Ti)), <span class="fu">parent</span>(pos)<span class="ch">')'</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>THEMIS-A positions from the <span class="co">[</span><span class="ot">PySPEDAS test cases</span><span class="co">](https://github.com/spedas/pyspedas/blob/master/pyspedas/cotrans_tools/tests/test_cotrans.py)</span>:</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="pp">@py</span> <span class="im">import</span> <span class="bu">pyspedas.cotrans_tools.tests.test_cotrans</span>: CotransTestCases</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="fu">CotransTestCases</span>().<span class="fu">test_cotrans</span>()</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>pyspedas.projects.themis.<span class="fu">state</span>([<span class="st">"2010-02-25/00:00:00"</span>, <span class="st">"2010-02-25/23:59:59"</span>], probe <span class="op">=</span> <span class="st">"a"</span>, time_clip <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>tha_pos <span class="op">=</span> <span class="fu">set</span>(<span class="fu">DimArray</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos"</span>)), Dim{<span class="op">:</span>time} <span class="op">=&gt;</span> Ti)</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>tha_pos_gse <span class="op">=</span> <span class="fu">set</span>(<span class="fu">DimArray</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_gse"</span>)), Dim{<span class="op">:</span>time} <span class="op">=&gt;</span> Ti)</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Agreement</span></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gei2geo</span>(tha_pos)</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>py <span class="op">=</span> PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_geo"</span>)</span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(py)</span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos, <span class="st">"GEI"</span>, <span class="st">"GEO"</span>)</span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gei2gsm</span>(tha_pos)</span>
+<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_gsm"</span>)) rtol <span class="op">=</span> <span class="fl">1e-5</span></span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos, <span class="st">"GEI"</span>, <span class="st">"GSM"</span>) rtol <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a>jl <span class="op">=</span> <span class="fu">gse2gsm</span>(tha_pos_gse)</span>
+<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a>pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos_gse"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GSE"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">parent</span>(PySPEDAS.<span class="fu">get_data</span>(<span class="st">"tha_pos_new_gsm"</span>)) rtol <span class="op">=</span> <span class="fl">1e-5</span></span>
+<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl <span class="op">≈</span> <span class="fu">irbem_cotrans</span>(tha_pos_gse, <span class="st">"GSE"</span>, <span class="st">"GSM"</span>) rtol <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## Benchmark</span></span>
+<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a>GeoCotrans, IRBEM, PySPEDAS:</span>
+<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gei2geo</span>(<span class="op">$</span>tha_pos), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos, <span class="st">"GEI"</span>, <span class="st">"GEO"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_geo"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GEO"</span>)</span>
+<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gei2gsm</span>(<span class="op">$</span>tha_pos), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos, <span class="st">"GEI"</span>, <span class="st">"GSM"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GEI"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">gse2gsm</span>(<span class="op">$</span>tha_pos_gse), <span class="fu">irbem_cotrans</span>(<span class="op">$</span>tha_pos_gse, <span class="st">"GSE"</span>, <span class="st">"GSM"</span>), pyspedas.<span class="fu">cotrans</span>(<span class="st">"tha_pos_gse"</span>, <span class="st">"tha_pos_new_gsm"</span>, coord_in <span class="op">=</span> <span class="st">"GSE"</span>, coord_out <span class="op">=</span> <span class="st">"GSM"</span>)</span>
+<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Field line tracing and magnetic equator</span></span>
+<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a><span class="in">`GeoCotrans.find_magequator`</span> traces the field line through a point and locates the |B| minimum, like IRBEM's <span class="in">`find_magequator`</span> with IGRF only (<span class="in">`kext = 0`</span>).</span>
+<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fu">DateTime</span>(<span class="fl">2020</span>, <span class="fl">1</span>, <span class="fl">1</span>)</span>
+<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> <span class="fu">GEO</span>(<span class="fl">3.0</span>, <span class="fl">0.5</span>, <span class="fl">1.2</span>)</span>
+<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a>jl_eq <span class="op">=</span> GeoCotrans.<span class="fu">find_magequator</span>(pos, t, <span class="fu">Tsit5</span>())</span>
+<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>ir_eq <span class="op">=</span> IRBEM.<span class="fu">find_magequator</span>(t, pos; kext <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl_eq.pos <span class="op">≈</span> ir_eq.XGEO rtol <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a><span class="pp">@test</span> jl_eq.Bmin <span class="op">≈</span> ir_eq.Bmin rtol <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> GeoCotrans.<span class="fu">find_magequator</span>(<span class="op">$</span>pos, <span class="op">$</span>t, <span class="fu">Tsit5</span>()), IRBEM.<span class="fu">find_magequator</span>(<span class="op">$</span>t, <span class="op">$</span>pos; kext <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb22-111"><a href="#cb22-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-112"><a href="#cb22-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a>Tracing the whole field line:</span>
+<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a><span class="pp">@b</span> <span class="fu">trace</span>(<span class="op">$</span>pos, <span class="op">$</span>t, <span class="fu">Tsit5</span>()), IRBEM.<span class="fu">trace_field_line</span>(<span class="op">$</span>t, <span class="op">$</span>pos; kext <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/edit/main/tutorials/coord_comparison/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/JuliaSpacePhysics/juliaspacephysics.github.io/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

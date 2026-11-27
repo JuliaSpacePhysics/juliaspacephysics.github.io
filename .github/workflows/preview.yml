@@ -7,8 +7,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
 
+# Closing a PR also cancels its build in progress, which would otherwise redeploy after cleanup.
 concurrency:
-  group: docs
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -75,16 +77,18 @@ jobs:
         with:
           ref: gh-pages
 
+      # Races with other pushes to gh-pages, hence the rebase-and-retry.
       - name: Remove PR Preview Directory
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          PREVIEW_DIR="pr-previews/${PR_NUMBER}"
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin gh-pages
-          rm -rf ${PREVIEW_DIR}
-          git add .
-          git commit -m "Remove preview for merged PR #${PR_NUMBER}"
-          git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PREVIEW_DIR: pr-previews/${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -rq --ignore-unmatch "$PREVIEW_DIR"
+          git diff --cached --quiet && exit 0
+          git commit -qm "Remove preview for PR ${PREVIEW_DIR#pr-previews/}"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin gh-pages && git push -q origin HEAD:gh-pages && exit 0
+            sleep $((5 * i))
+          done
+          exit 1

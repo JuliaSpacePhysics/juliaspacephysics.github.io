@@ -5,8 +5,10 @@ on:
     branches: [main]
   workflow_dispatch: # manual trigger for testing
 
+# A newer main supersedes a deploy in progress. Pushes to gh-pages that race with preview.yml are
+# rebased and retried by the deploy action.
 concurrency:
-  group: docs
+  group: publish
   cancel-in-progress: true
 
 name: Deploy to GitHub Pages
@@ -41,3 +43,4 @@ jobs:
         with:
           branch: gh-pages
           folder: _site
+          clean-exclude: pr-previews
